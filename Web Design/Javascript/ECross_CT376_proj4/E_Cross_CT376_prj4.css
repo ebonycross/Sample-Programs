@@ -1,0 +1,36 @@
+/* CT376: Project #4, Event Handling, callbacks and functions using JQuery
+Name: Ebony Cross
+Professor: Franceschi
+Due Date: 4//16
+*/
+
+
+.header
+{
+  background-color: peru;
+   color: darkred;
+}
+
+.newH1
+{
+  background-color: springgreen;
+    color: darkblue;
+}
+
+p
+{
+    background-color: mediumslateblue;
+    width: 400px;
+    height: 200px;
+    position:relative;
+}
+
+#cal
+{
+    border-color: crimson;
+}
+
+#par2
+{
+    color: antiquewhite;
+}
