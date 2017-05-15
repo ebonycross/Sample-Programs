@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.* ?>
+
+<VBox fx:controller="LoginController" 
+	alignment="center" maxHeight="400.0" maxWidth="400.0"
+	spacing="10" xmlns="http://javafx.com/javafx/8" 
+	xmlns:fx="http://javafx.com/fxml">
+	
+	
+	<children>
+		<VBox prefHeight="200.0" prefWidth="100.0">
+			<Label fx:id="welcome" text="Welcome" />
+			<children>
+				<HBox alignment="CENTER" prefHeight="65.0" prefWidth="268.0">
+					<children>
+						<Label text="Enter Username. Then press Enter: " />
+						<TextField fx:id="user" onKeyPressed="#loginTxt" text=""
+							prefHeight="27.0" prefWidth="121.0" />
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+		<VBox prefHeight="200.0" prefWidth="100.0">
+			<children>
+				<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15">
+					<children>
+						<Button fx:id="loginBtn" onAction="#login" disable="true" text="Login" />
+					</children>
+					<children>
+						<Button fx:id="exitBtn" onAction="#exit" text="Exit" />
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+	</children>
+</VBox>
+
+

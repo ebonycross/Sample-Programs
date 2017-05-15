@@ -1,0 +1,3 @@
+The Monet House,1-Bedroom Ranch,false, owner
+The da Vinci House,5-Bedroom Victorian,true,not available
+The van Gogh House,3-Bedroom Cottage,false,owner

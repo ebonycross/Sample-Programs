@@ -1,0 +1,14 @@
+sortedlinkedListTest 
+
+setup()throws exception
+comparator = new stringcomparator();
+//comparator.compares(arg0, arg1);
+sortedLinkedString = new SortedLinkedList<String>(comparator)
+sorted LinkDount ""<Double>(comparatorD)
+
+--------------------------------------------
+sortedLinkedList class
+
+public SortedLinkedList(T comparator){
+	
+}

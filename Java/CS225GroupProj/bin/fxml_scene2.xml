@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Text.*?>
+
+<BorderPane fx:controller="RentalController" xmlns:fx="http://javafx.com/fxml">
+
+	<top>
+
+		<Label fx:id="label" maxWidth="500" text="User Login: " />
+	</top>
+
+	<left>
+		<VBox maxWidth="500.0" spacing="20" alignment="center">
+			<Label fx:id="text" text="Select House for Reservation" />
+
+			<ComboBox fx:id="list" style="width:400.0" visibleRowCount="7"
+				onAction="#levelSelected">
+			</ComboBox>
+			<Label fx:id="info" text="Information:" />
+			<Label fx:id="result" text="" />
+		</VBox>
+	</left>
+
+
+	<center>
+		<ImageView fx:id="houseImage"></ImageView>
+	</center>
+	
+	<bottom>
+		<HBox alignment="center" prefHeight="200.0" prefWidth="300.0" maxWidth="500.0" spacing="10">
+			<Button fx:id="rentBtn" onAction="#reserve" text="Reserve Selection" />
+			<Button fx:id="exitBtn" onAction="#exit" text="Exit" />
+
+		</HBox>
+
+	</bottom>
+
+</BorderPane>

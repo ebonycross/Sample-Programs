@@ -1,0 +1,9 @@
+O 01 05 2015 10 00 Dr. Appt
+W 01 04 2015 09 30 Zumba Class
+D 01 01 2015 08 00 Walk the Dog
+O 01 21 2015 20 30 Eric's Bday Party
+D 01 15 2015 07 30 Treadmill
+D 02 01 2015 18 30 Call Mom
+W 02 02 2015 16 00 Band Practice
+W 01 27 2015 15 30 Piano Lessons
+O 02 14 2015 19 00 Valentine Dinner

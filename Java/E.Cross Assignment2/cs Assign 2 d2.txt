@@ -1,0 +1,123 @@
+cs assin 2 draft 2
+
+3 passing junits
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
+public class BasicLinkedList<T> {
+	public class Node<T> {
+		 T element;
+		Node<T> next;
+		
+		public Node (T data){
+			element = data;
+			next = null;
+		}
+		public Node (T data, Node<T> nodeRef){
+			element = data;
+			next = nodeRef;
+		}
+		
+		
+		public T getElement(){
+			return element;
+		}
+		public Node<T> getNext(){
+			return next;
+		}
+		public void setNext(Node<T> n){
+			next = n;
+		}
+	}
+	
+	protected Node<T> head;
+	protected Node<T> tail;
+	int size;
+	
+	/*public BasicLinkedList(){}
+	
+	*/
+	
+	public BasicLinkedList(){
+		size = 0;
+		head = null;
+		tail = null;
+	}
+
+	public void addToEnd(T data) {
+		//Node<T> n = new Node<>(data, null);
+		if(!(isEmpty())){
+			tail.next = new Node<T>(data);
+			tail = tail.next;
+			//System.out.println("if-add()");
+		}
+		else{
+			head = tail = new Node<T>(data);
+		}	
+		size = size +1;		
+	}
+		
+		
+
+		
+		
+	
+	
+	public boolean isEmpty() {
+	
+		return size == 0;
+	}
+	
+	public void addToFront(T data){
+		head = new Node<T>(data,head);
+	/*
+	if(tail == null){
+		tail = head;	
+	}*/
+	size++;
+	
+}
+
+	/*public void addToFront(T data){
+		head = new Node<>(data,head);
+		if(size == 0){
+			tail = head;
+			size++;
+		}
+	}*/
+	
+		
+	public int getSize() {
+		return size;
+	}
+
+	public T getLast() {
+		if(isEmpty()){
+			return null;
+		}
+		
+		return tail.getElement() ;
+	}
+
+	public T getFirst() {
+		if(isEmpty()){
+			return null;
+		}
+		return head.element;
+	}
+
+	public ArrayList<String> toArrayList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Iterator<String> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

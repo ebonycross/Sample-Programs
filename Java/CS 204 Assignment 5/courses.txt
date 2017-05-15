@@ -1,0 +1,36 @@
+BIOL101
+Chung
+General Biology
+3
+MW
+9:00-10:15
+CMSC226
+McDowall
+Intro to OOP
+3
+TR
+11:00-12:15
+HLTH113
+Smith
+First Aid
+3
+MW
+9:00-10:15
+ACCT221
+Brown
+Accounting I
+4
+MW
+9:00-10:15
+HIST257
+Jones
+Military History
+3
+MW
+9:00-10:15
+DANC105
+Wilson
+Jazz Dance
+3
+MWF
+10:00 - 10:50
