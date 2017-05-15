@@ -1,0 +1,16 @@
+ISBN,Title,author,Publisher,Date added,Quantity-on-hand,Wholesale Cost,Retail price
+0062249061,Eva and Sadie,Jeff Cohen,HarperCollins,06/03/2014,12,6.75,17.95
+0763673064,Frances Dean,Birgitta Sif,Candlewick,08/28/2009,5,11.24,25.99 
+0399255370,The Day the Crayons Quit,Drew Daywalt,Philomel,06/27/2003,7,7.33,15.99
+0399257373,Stuck,Oliver Jeffers,Philomel,11/10/2011,44,10.50,21.95
+0312367554,A Wrinkle in Time,Madeleine LEngle,Square Fish,05/01/1977,30,5.55,18.00
+067976674X,Selected Stories,Alice Munro,12/13/1997,12,52.50,75.99
+0553213458,Alice in Wonderland,Lewis Carroll,Bantam Classics,01/01/1984,75,29.57,45.95
+1400033411,Beloved,Toni Morrison,Vintage,05/08/2004,4,9.00,13.95
+1451626657,Catch 22,Joseph Heller,Simon and Schuster,04/05/2006,50,8.40,22.99
+0739477072,Charlotte's Web,E.B. White, HarperCollins,03/10/2012,8,7.60,10.95
+0441013597,Dune,Frank Herbert,Ace,08/02/2005,61,21.00,43.95
+0679732764,Invisible Man,Ralph Ellision,Vintage International,02/14/1995,52,6.00,9.99
+0618249060,Silent Spring,Rachel Carson,Houghton Mifflin,10/22/2002,66,3.77,8.81
+0312427565,The Right Stuff,Tom Wolfe,Picador,09/14/1987,1,2.89,12.12
+0679720200,The Stranger,Matthew Ward,Viewpoint,07/23/1989,15,7.70,38.74
