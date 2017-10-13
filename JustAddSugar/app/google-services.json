@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "86732157486",
+    "firebase_url": "https://just-add-sugar.firebaseio.com",
+    "project_id": "just-add-sugar",
+    "storage_bucket": "just-add-sugar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86732157486:android:585656cfe12b4222",
+        "android_client_info": {
+          "package_name": "com.emc_ideas.justaddsugar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86732157486-tinovarf99lmcppvghdvin0j2si9k0d7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.emc_ideas.justaddsugar",
+            "certificate_hash": "baa60b85baf2284dbb6b6baa65fed96a2758c9c7"
+          }
+        },
+        {
+          "client_id": "86732157486-ktc7lqbrhjitcmndemge2d0l1pa9og6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ94ASbRWDe9CalcA6oyD_SzzUH9lMFYc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86732157486-ktc7lqbrhjitcmndemge2d0l1pa9og6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

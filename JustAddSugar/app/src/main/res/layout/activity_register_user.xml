@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppThemeV2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/register_container">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            style="@style/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:gravity="center"
+            android:paddingTop="60dp"
+            android:text="@string/signupText" />
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="84dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <!--email login-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/signupUsernameWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/signupUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!--zipcode-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/signupEmailWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/signupUserEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!--password login-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/signupPasswordWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/signupUserPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <Button
+                android:id="@+id/signup_btn"
+                android:layout_width="340dp"
+                android:layout_height="60dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="@string/submitTxt"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:onClick="clickCreateActHandler"/>
+
+
+            <TextView
+                android:id="@+id/alreadyUser"
+                android:layout_width="340dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:contextClickable="true"
+                android:text="@string/alreadyUserTxt"
+                android:textSize="20sp"
+                android:onClick="clickAlreadMemberHandler"/>
+
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>
+
+
+
