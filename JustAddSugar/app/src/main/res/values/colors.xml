@@ -7,6 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#c3c3c3</color>
     <color name="colorLightGrey">#F8F7F7</color>
+    <color name="colorLightGrey2">#f4f9f9f9</color>
     <color name="colorPrimaryLight">#A7FFEB</color>
     <color name="colorPrimaryLight2">#64FFDA</color>
     <!--color name="colorPrimaryLightTint">#A643C6AC</color-->

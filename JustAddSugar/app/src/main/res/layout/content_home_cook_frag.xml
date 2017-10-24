@@ -1,10 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cookbookScreen"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:orientation="vertical"
+    android:background="@color/colorLightGrey">
+
+   <android.support.v7.widget.CardView
+       android:layout_height="200dp"
+       android:layout_width="match_parent"
+       android:paddingLeft="10dp"
+       android:paddingRight="10dp"
+       android:paddingTop="10dp"
+       android:paddingBottom="10dp"
+       app:cardCornerRadius="5dp"
+       app:cardElevation="15dp">
+
+      <LinearLayout
+          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:orientation="vertical">
+
+         <ImageView
+             android:layout_width="fill_parent"
+             android:layout_height="160dp"
+             android:src="@drawable/foodies_spread"
+             android:adjustViewBounds="true"
+             android:scaleType="centerCrop"
+             />
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingTop="5dp"
+             android:text="Cookbooks"
+             android:textStyle="bold"
+             android:textSize="24sp"
+             android:textColor=""
+             android:id="@+id/cardTitle"
+             android:gravity="bottom|center"
+             />
+      </LinearLayout>
+
+
+   </android.support.v7.widget.CardView>
+
+
+
+
    <Button
     android:id="@+id/frag1_btn"
-    android:layout_width="340dp"
+    android:layout_width="match_parent"
     android:layout_height="60dp"
     android:layout_alignParentBottom="true"
     android:layout_gravity="center"
