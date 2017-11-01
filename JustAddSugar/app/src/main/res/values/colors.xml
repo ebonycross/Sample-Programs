@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--color name="colorPrimary">#3F51B5</color-->
-    <color name="colorPrimary"> #43C6AC</color>
+    <!--Blac, Grey & White Colors -->
     <color name="colorPrimaryDark">#19191a</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#c3c3c3</color>
+    <color name="colorDarkGrey">#4b4b4b</color>
     <color name="colorLightGrey">#F8F7F7</color>
     <color name="colorLightGrey2">#f4f9f9f9</color>
-    <color name="colorPrimaryLight">#A7FFEB</color>
-    <color name="colorPrimaryLight2">#64FFDA</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+
+    <!--        Yellow Colors     -->
+    <color name="colorAccentNeonYellow">#ebff10</color>
+    <color name="colorAccent">#ffff00</color>
+    <color name="colorAccentDarkYellowGreen">#c7cc00</color>
+    <color name="colorAccentLightYellowGreen">#ffff5a</color>
+
+    <!--        Blue Colors     -->
+    <color name="colorPrimaryBlue">#1de9b6</color>
+    <color name="colorPrimaryLightBlue">#6effe8</color>
+    <color name="colorPrimaryDarkBlue"> #00b686</color>
     <!--color name="colorPrimaryLightTint">#A643C6AC</color-->
     <color name="colorPrimaryLightTint">#9901806a</color>
-
+    <color name="colorPrimary"> #43C6AC</color>
+    <color name="colorPrimaryLight">#A7FFEB</color>
+    <color name="colorPrimaryLight2">#64FFDA</color>
 </resources>

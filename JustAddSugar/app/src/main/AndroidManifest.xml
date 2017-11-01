@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.emc_ideas.justaddsugar">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <!-- Home Screen -->
     <application
         android:allowBackup="true"
@@ -22,7 +24,8 @@
         <activity
             android:name=".homeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".FragmentDialogActivity"></activity>
     </application>
 
 </manifest>

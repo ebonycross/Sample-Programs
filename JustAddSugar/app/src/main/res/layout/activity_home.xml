@@ -54,9 +54,9 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:id="@+id/bottom_navViewBar"
-            app:itemIconTint="@color/colorWhite"
+            app:itemIconTint="@color/colorLightGrey2"
 
-            app:itemTextColor="@color/colorWhite"
+            app:itemTextColor="@color/colorLightGrey2"
             android:background="@drawable/white_grey_border_top"
             />
 

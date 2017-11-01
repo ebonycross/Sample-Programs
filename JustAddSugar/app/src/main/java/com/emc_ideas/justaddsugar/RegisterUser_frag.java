@@ -107,7 +107,7 @@ public class RegisterUser_frag extends Fragment {
       }
 
         else {
-            home.showProgressDialog("Intializing");
+            //home.showProgressDialog("Intializing");
 
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
@@ -124,7 +124,7 @@ public class RegisterUser_frag extends Fragment {
                                 verifyEmailPassword(currentUser);
                             }
 
-                            home.hideProgressDialog();
+                           // home.hideProgressDialog();
                         }
                     });
         }

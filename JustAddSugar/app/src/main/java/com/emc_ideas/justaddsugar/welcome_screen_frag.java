@@ -35,8 +35,8 @@ public class welcome_screen_frag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState){
         View v = inflater.inflate(R.layout.content_main, parent, false);
-        userEmail = (EditText) v.findViewById(R.id.userEmail);
-        userPassword = (EditText) v.findViewById(R.id.userPassword);
+        //userEmail = (EditText) v.findViewById(R.id.userEmail);
+        //userPassword = (EditText) v.findViewById(R.id.userPassword);
 
 
         //1. navigate to sign-up screen
@@ -54,16 +54,20 @@ public class welcome_screen_frag extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), homeActivity.class);
+                startActivity(intent);
+                /*
                 isVerifiedSignInEmailPassword(userEmail.getText().toString(), userPassword.getText().toString());
                 if (currentUser.isEmailVerified() == true) {
+
                     Intent intent = new Intent(getActivity(), homeActivity.class);
                     startActivity(intent);
                 }
                 else{
                     notifyUser("Email has not been verified, check email account.");
                 }
-                Intent intent = new Intent(getActivity(), homeActivity.class);
-                startActivity(intent);
+
+*/
             }
         });
 

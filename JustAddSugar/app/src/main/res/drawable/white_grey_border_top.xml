@@ -13,8 +13,11 @@
             <stroke android:width="0.5dp"
                 android:color="@color/colorGrey"/>
             <solid
-                android:color="@color/colorPrimaryLightTint"/>
+                android:color="@color/colorPrimaryBlue"
+            />
         </shape>
     </item>
 
 </layer-list>
+
+    <!--android:color="@color/colorPrimaryLightTint"-->
