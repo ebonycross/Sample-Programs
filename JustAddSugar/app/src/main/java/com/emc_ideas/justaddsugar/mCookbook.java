@@ -3,6 +3,7 @@ package com.emc_ideas.justaddsugar;
 import com.emc_ideas.justaddsugar.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -17,10 +18,12 @@ public class mCookbook {
     private String author;
     private UUID uID;
     private R.drawable picture;
+    private List<mCookbook> bList;
 
     public mCookbook() {
         title = author = null;
         coAuthors = new ArrayList<String>();
+        bList = new ArrayList<mCookbook>();
     }
 
     public mCookbook(String t, String a) {
@@ -28,6 +31,7 @@ public class mCookbook {
         title = t;
         coAuthors = new ArrayList<String>();
         author = a;
+        bList = new ArrayList<mCookbook>();
     }
 
     public mCookbook(String t, String a, R.drawable icon) {
@@ -36,6 +40,7 @@ public class mCookbook {
         coAuthors = new ArrayList<String>();
         picture = icon;
         author = a;
+        bList = new ArrayList<mCookbook>();
     }
 
     public String getTitle() {
