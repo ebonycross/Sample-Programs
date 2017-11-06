@@ -25,14 +25,14 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
     to get a ref to get item in the list of cookbooks
     call inner private class. use View Holder to see all
      */
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         //grab items from the cardview
         CardView cv;
         TextView bookAuthor;
         TextView bookTitle;
         FloatingActionButton bookFab;
 
-        public ViewHolder(View itemView){
+        public ViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.bookHolder);
             bookAuthor = (TextView) itemView.findViewById(R.id.cardAuthor);
@@ -43,15 +43,15 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
     }//end of inner class
 
     //constructor of adapter
-    public CookBookAdapter(List<mCookbook> bookList){
+    public CookBookAdapter(List<mCookbook> bookList) {
         cookbookList = bookList;
     }
 
     //create new view when inviked by the layout manager
     @Override
-    public CookBookAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public CookBookAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //create a new view
-       LayoutInflater li =  LayoutInflater.from(parent.getContext());
+        LayoutInflater li = LayoutInflater.from(parent.getContext());
         View v = li.inflate(R.layout.cookbook_list, parent, false);
         ViewHolder vh = new ViewHolder(v);
 
@@ -60,25 +60,42 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
 
     //replace the contents of a view that is invoked by the laoyout manager
     @Override
-    public void onBindViewHolder(CookBookAdapter.ViewHolder holder, int i){
+    public void onBindViewHolder(CookBookAdapter.ViewHolder holder, final int i) {
         //1. get the element from arraylist at this position
         //2. replace contents of the view with that element
         mCookbook book = cookbookList.get(i);
         holder.bookTitle.setText(book.getTitle());
-        holder.bookAuthor.setText(book.getAuthor());
+        holder.bookAuthor.setText("By Author " + book.getAuthor());
+
+        //set a click listener for list to remove item
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (cookbookList.size() > 0) {
+                    cookbookList.remove(i);
+                    //notify adapter that item preivously has been removed from the data set
+                    notifyItemRemoved(i);
+
+                    //notify any registered oberevers that itemCount itmes poistion has changed as well
+                    notifyItemRangeChanged(i, cookbookList.size());
+                } else { //create a label to tell user no more items in the list}
+
+                }
+            }
+        });
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView rv){
+    public void onAttachedToRecyclerView(RecyclerView rv) {
         super.onAttachedToRecyclerView(rv);
     }
 
     @Override
-    public int getItemCount(){
+    public int getItemCount() {
         return cookbookList.size();
     }
 
-    public List<mCookbook> getCookBookList(){
+    public List<mCookbook> getCookBookList() {
         return cookbookList;
     }
 

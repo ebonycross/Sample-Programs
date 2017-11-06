@@ -1,8 +1,10 @@
 package com.emc_ideas.justaddsugar;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +19,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,11 +29,14 @@ import java.util.List;
 /**
  * Created by ecross on 10/9/17.
  */
-public class home_screen_cookbook_frag extends Fragment{
+public class home_screen_cookbook_frag extends Fragment {
     FragmentManager fm;
     Context mContext;
     private RecyclerView mRecycler;
     private RecyclerView.LayoutManager mLayoutMgr;
+    private TextView status;
+    private EditText title;
+    private Intent i;
 
     private List<mCookbook> cBooks;
     private CookBookAdapter bookAdapter;
@@ -42,7 +49,6 @@ public class home_screen_cookbook_frag extends Fragment{
         initDataset();
 
 
-
     }
 
     @Override
@@ -52,12 +58,12 @@ public class home_screen_cookbook_frag extends Fragment{
         mContext = getActivity();
 
 
-
+        status = (TextView) v.findViewById(R.id.dialog_status);
 
         mRecycler = (RecyclerView) v.findViewById(R.id.rv);
 
         //good for if content layout size doesnt really change
-        if(mRecycler !=null){
+        if (mRecycler != null) {
             mRecycler.setHasFixedSize(true);
         }
 
@@ -90,56 +96,78 @@ public class home_screen_cookbook_frag extends Fragment{
             @Override
             public void onClick(View view) {
                 LayoutInflater li = LayoutInflater.from(mContext);
-                View promptsView = li.inflate(R.layout.activity_fragment_dialog, null);
+                final View promptsView = li.inflate(R.layout.activity_fragment_dialog, null);
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext, R.style.DialogStyle);
 
                 //set dialog layout .xml
                 alertDialogBuilder.setView(promptsView);
 
+
                 alertDialogBuilder.setCancelable(false)
-                        .setTitle("Alert Frag")
+                        .setTitle("Name of Cookbook")
 
 
-                        .setPositiveButton("OKay Dokey", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
+                                //status.setText("");
+
+                                try {
+                                    title = (EditText) promptsView.findViewById(R.id.dialog_userInput);
+                                    String s = title.getText().toString();
+                                    Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+
+                                    mCookbook c = new mCookbook(s, "");
+                                    cBooks.add(c);
+                                    int position = bookAdapter.getItemCount();
+                                    bookAdapter.notifyItemInserted(position);
+                                    mRecycler.scrollToPosition(position);
+
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         })
 
-                        .setNegativeButton("Naw", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
+
                 AlertDialog alertDialog = alertDialogBuilder.create();
+
 
                 //show it
                 alertDialog.show();
-
-                // DialogFragment alertDFragment = new AlertDFragment();
-
-                //alertDFragment.show(fm, "Alert Dia");
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-
-
-                int position = bookAdapter.getItemCount();
-                try {
-                    mCookbook c = new mCookbook("Title", "The Author");
-                    cBooks.add(c);
-                    bookAdapter.notifyItemInserted(position);
-                    mRecycler.scrollToPosition(position);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    e.printStackTrace();
-                }
-
             }
         });
 
         return v;
     }
 
-    private void initDataset(){
+
+    private void initDataset() {
         cBooks = new ArrayList<mCookbook>();
     }
+
+    public void addItem(Intent data) {
+        Bundle bun = data.getExtras();
+        String s1 = bun.getString("title");
+        Toast.makeText(getActivity(), s1, Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle b = data.getExtras();
+                    String t = b.getString("");
+                }
+        }
+    }
+
 }

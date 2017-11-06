@@ -12,12 +12,17 @@
 
     <!--        Yellow Colors     -->
     <color name="colorAccentNeonYellow">#ebff10</color>
-    <color name="colorAccent">#ffff00</color>
+    <!--color name="colorAccent">#ffeb3b, ffd786</color-->
+    <!--color name="colorAccent">#ffff00</color-->
     <color name="colorAccentDarkYellowGreen">#c7cc00</color>
     <color name="colorAccentLightYellowGreen">#ffff5a</color>
+    <color name="colorGradLight">#F8FFAE</color>
 
     <!--        Blue Colors     -->
-    <color name="colorPrimaryBlue">#1de9b6</color>
+
+
+    <!--color name="colorPrimaryBlue">#69f0ae</color-->
+    <!--color name="colorPrimaryBlue">#1de9b6</color-->
     <color name="colorPrimaryLightBlue">#6effe8</color>
     <color name="colorPrimaryDarkBlue"> #00b686</color>
     <!--color name="colorPrimaryLightTint">#A643C6AC</color-->
@@ -25,4 +30,13 @@
     <color name="colorPrimary"> #43C6AC</color>
     <color name="colorPrimaryLight">#A7FFEB</color>
     <color name="colorPrimaryLight2">#64FFDA</color>
+    <color name="colorGradDark">#43C6AC</color>
+
+    <!---        Pink Colors       -->
+    <color name="colorAccent">#fad1a7</color>
+    <color name="colorPrimaryBlue">#ff7456</color>
+    <color name="colorPrimaryLightPink">#ffa683</color>
+    <color name="colorPrimaryDarkPink">#c6432b</color>
+
+
 </resources>

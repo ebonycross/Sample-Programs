@@ -21,7 +21,7 @@ public class mCookbook {
     private List<mCookbook> bList;
 
     public mCookbook() {
-        title = author = null;
+        title = author = "pow";
         coAuthors = new ArrayList<String>();
         bList = new ArrayList<mCookbook>();
     }

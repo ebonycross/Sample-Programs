@@ -46,14 +46,18 @@ public class homeActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Toolbar toolbar = (Toolbar) findViewById(R.id.topToolbar);
                 switch (item.getItemId()) {
                     case R.id.ic_home:
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.replace(R.id.home_container, home_frag).commit();
+                        getSupportActionBar().setTitle("Welcome");
+
                         return true;
                     case R.id.ic_profile:
                         ft = fm.beginTransaction();
                         ft.replace(R.id.home_container, profile_frag).commit();
+                        toolbar.setTitle("Profile");
                         return true;
                     case R.id.ic_food:
                         ft = fm.beginTransaction();
