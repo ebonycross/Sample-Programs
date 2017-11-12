@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addRecipe_frag_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGrey"
+    android:orientation="vertical"
+    android:paddingTop="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/addRecipe_container"
+            android:orientation="vertical"
+            >
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/addRecipe_header"
+                style="@style/card_dimen"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="15dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/card_dimen" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/atma_medium"
+                    android:gravity="center"
+                    android:text="Recipes"
+                    android:textColor="@color/colorLightGrey2"
+                    android:textSize="36sp" />
+
+            </android.support.v7.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/atma_medium"
+                    android:text="Get Started:"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="20sp" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <!--start of user form-->
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/form_title_wrapper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp">
+
+                            <EditText
+                                android:id="@+id/form_title"
+                                style="@style/userForms"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter Name of Cookbook"
+                                android:inputType="text"
+                                android:paddingBottom="5dp" />
+                        </android.support.design.widget.TextInputLayout>
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/form_cooktime_wrapper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp">
+
+                            <EditText
+                                android:id="@+id/form_cooktime"
+                                style="@style/userForms"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter cooktime"
+                                android:inputType="text"
+                                android:paddingBottom="5dp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/form_food_wrapper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="5dp">
+
+                            <EditText
+                                android:id="@+id/form_food"
+                                style="@style/userForms"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter Amount of Serving"
+                                android:inputType="text"
+                                android:paddingBottom="5dp" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/atma_medium"
+                    android:text="Add Ingredients:"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="20sp" />
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/form_serving_wrapper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="15dp">
+
+                            <EditText
+                                android:id="@+id/form_serving"
+                                style="@style/userForms"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Enter Ingredient"
+                                android:inputType="text"
+                                android:paddingBottom="5dp" />
+                        </android.support.design.widget.TextInputLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/np_container"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="5dp">
+
+                                <TextView
+                                    android:id="@+id/tv_num_picker"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="Select Amount:"
+                                    android:textColor="@color/colorPrimaryDarkPink" />
+
+                                <NumberPicker
+                                    android:id="@+id/np1"
+                                    style="@style/nm"
+                                    android:layout_width="50dp"
+                                    android:layout_height="100dp"
+                                    android:layout_below="@id/tv_num_picker"></NumberPicker>
+
+                                <NumberPicker
+                                    android:id="@+id/np2"
+                                    style="@style/nm"
+                                    android:layout_width="50dp"
+                                    android:layout_height="100dp"
+                                    android:layout_below="@id/tv_num_picker"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_toRightOf="@id/np1"></NumberPicker>
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_toRightOf="@id/np_container">
+
+                                <TextView
+                                    android:id="@+id/set_ig"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginBottom="20dp"
+                                    android:gravity="center"
+                                    android:hint="Select Measurement Type:"
+                                    android:inputType="text"
+                                    android:paddingBottom="10dp"
+                                    android:textColorHint="@color/colorPrimaryDarkPink" />
+
+                                <HorizontalScrollView
+                                    android:id="@+id/hv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+
+                                    <LinearLayout
+                                        android:id="@+id/hscroll_bg"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toEndOf="@+id/np_container"
+                                        android:orientation="horizontal"
+                                        android:padding="8dp">
+
+
+                                        <Button
+                                            android:id="@+id/tsp_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:elevation="@dimen/shadow"
+                                            android:padding="2dp"
+                                            android:text="tsp"
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/tbsp_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:elevation="@dimen/shadow"
+                                            android:padding="2dp"
+                                            android:text="tbsp"
+                                            android:theme="@style/MyButton" />
+
+
+                                        <Button
+                                            android:id="@+id/cup_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:elevation="@dimen/shadow"
+                                            android:padding="2dp"
+                                            android:text="Cup"
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/oz_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:padding="2dp"
+                                            android:text="oz"
+
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/g_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:padding="2dp"
+                                            android:text="g"
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/lb_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:padding="2dp"
+                                            android:stateListAnimator="@drawable/bg_state_selector"
+                                            android:text="lb"
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/l_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:padding="2dp"
+                                            android:stateListAnimator="@drawable/bg_state_selector"
+                                            android:text="L"
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/qt_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:padding="2dp"
+                                            android:stateListAnimator="@drawable/bg_state_selector"
+                                            android:text="qt"
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/gal_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:padding="2dp"
+                                            android:stateListAnimator="@drawable/bg_state_selector"
+                                            android:text="gal"
+                                            android:theme="@style/MyButton" />
+
+                                        <Button
+                                            android:id="@+id/flOz_button"
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginRight="@dimen/padding"
+                                            android:background="@drawable/bg_selector_info"
+                                            android:clickable="true"
+                                            android:padding="2dp"
+                                            android:stateListAnimator="@drawable/bg_state_selector"
+                                            android:text="fl oz"
+                                            android:theme="@style/MyButton" />
+
+
+                                    </LinearLayout>
+
+                                </HorizontalScrollView>
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/atma_medium"
+                    android:text="Current List of Ingredients:"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="20sp" />
+
+
+                <!--- RecyclerView -->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_addRecipe"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorDarkGrey"
+                    android:scrollbars="vertical" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/atma_medium"
+                android:text="Add Directions:"
+                android:textColor="@color/colorDarkGrey"
+                android:textSize="20sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/textArea_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="500">
+
+
+                <EditText
+                    android:id="@+id/textArea_directions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Meal Guide"
+                    android:inputType="textMultiLine" />
+
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="submit"
+                android:textSize="24sp"
+                android:fontFamily="@font/atma_medium"
+                android:textColor="@color/colorLightGrey2"
+                android:background="@color/colorLightOrangeSal"/>
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

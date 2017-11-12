@@ -41,14 +41,12 @@ public class home_screen_cookbook_frag extends Fragment {
     private List<mCookbook> cBooks;
     private CookBookAdapter bookAdapter;
 
+    private RecyclerViewClickListener listener;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         initDataset();
-
-
     }
 
     @Override
@@ -74,10 +72,14 @@ public class home_screen_cookbook_frag extends Fragment {
 
         mRecycler.setLayoutManager(mLayoutMgr);
 
+
+
+       /*
         mCookbook cook = new mCookbook();
         cook.setAuthor("Ebony");
         cook.setTitle("Cross Family Cookbook");
         cBooks.add(cook);
+        */
         //initialize adapter to list of books
         bookAdapter = new CookBookAdapter(cBooks);
 

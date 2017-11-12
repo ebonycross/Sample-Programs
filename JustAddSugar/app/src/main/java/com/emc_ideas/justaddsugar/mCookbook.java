@@ -1,7 +1,5 @@
 package com.emc_ideas.justaddsugar;
 
-import com.emc_ideas.justaddsugar.R;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,12 +16,19 @@ public class mCookbook {
     private String author;
     private UUID uID;
     private R.drawable picture;
-    private List<mCookbook> bList;
+    private List<mRecipe> recipeList;
 
     public mCookbook() {
         title = author = "pow";
         coAuthors = new ArrayList<String>();
-        bList = new ArrayList<mCookbook>();
+        recipeList = new ArrayList<mRecipe>();
+    }
+
+    public mCookbook(String t) {
+        uID = UUID.randomUUID();
+        title = t;
+        coAuthors = new ArrayList<String>();
+        recipeList = new ArrayList<mRecipe>();
     }
 
     public mCookbook(String t, String a) {
@@ -31,7 +36,7 @@ public class mCookbook {
         title = t;
         coAuthors = new ArrayList<String>();
         author = a;
-        bList = new ArrayList<mCookbook>();
+        recipeList = new ArrayList<mRecipe>();
     }
 
     public mCookbook(String t, String a, R.drawable icon) {
@@ -40,7 +45,7 @@ public class mCookbook {
         coAuthors = new ArrayList<String>();
         picture = icon;
         author = a;
-        bList = new ArrayList<mCookbook>();
+        recipeList = new ArrayList<mRecipe>();
     }
 
     public String getTitle() {
@@ -65,6 +70,18 @@ public class mCookbook {
         return coAuthors;
     }
 
+    //add other users to the list of co-publishers for cookbook
+    public List<mRecipe> addRecipe(mRecipe r) {
+        recipeList.add(r);
+        return recipeList;
+    }
+
+    public List<mRecipe> removeRecipe(int index) {
+        recipeList.remove(index);
+        return recipeList;
+    }
+
+
     public UUID getuID() {
         return uID;
     }
@@ -85,8 +102,8 @@ public class mCookbook {
         return coAuthors;
     }
 
-    public void setCoAuthors(ArrayList<String> coAuthors) {
-        this.coAuthors = coAuthors;
+    public void setCoAuthors(String author, int i) {
+        coAuthors.get(i).replace(coAuthors.get(i), author);
     }
 
     public String getAuthor() {

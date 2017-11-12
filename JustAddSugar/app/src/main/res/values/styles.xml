@@ -18,6 +18,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="card_dimen">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+
+    </style>
 
 
     <style name="header">
@@ -28,6 +37,12 @@
         <item name="android:paddingRight">6dp</item>
     </style>
 
+    <style name="userForms">
+        <item name="android:textSize">@dimen/titles</item>
+        <item name="android:fontFamily">@font/atma_medium</item>
+        <!--item name="android:textAlignment">textStart</item-->
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -36,6 +51,18 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:background">@color/colorLightGrey2</item>
 
+    </style>
+
+    <!--- Button (Raised) Styles -->
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimaryDarkPink</item>
+        <item name="colorButtonNormal">@color/colorLightGrey</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:elevation">@dimen/shadow</item>
+    </style>
+
+    <style name="nm" parent="@android:style/Widget.Material.Light.NumberPicker">
+        <item name="colorControlNormal">@color/colorPrimaryLightPink</item>
     </style>
 
 </resources>

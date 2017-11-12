@@ -37,6 +37,7 @@
     <color name="colorPrimaryBlue">#ff7456</color>
     <color name="colorPrimaryLightPink">#ffa683</color>
     <color name="colorPrimaryDarkPink">#c6432b</color>
-
-
+    <color name="colorAccentLightPink">#FFEDBC</color>
+    <color name="colorLightOrange">#FFF57643</color>
+    <color name="colorLightOrangeSal">#FFFF976D</color>
 </resources>

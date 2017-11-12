@@ -9,7 +9,14 @@ public enum Measurement {
     tablespoon ("tbsp"),
     pound ("lb"),
     gram ("g"),
-    ounce ("oz")
+    ounce ("oz"),
+    cup ("cup"),
+    liter("L"),
+    gallon("gal"),
+    quart("qt"),
+    mililiter("mL"),
+    fuild_ounce("fl oz")
+
     ;//ends field definition
 
     private final String code;

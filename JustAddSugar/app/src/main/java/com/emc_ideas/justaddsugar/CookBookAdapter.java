@@ -1,15 +1,15 @@
 package com.emc_ideas.justaddsugar;
 
+import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,9 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
     to get a ref to get item in the list of cookbooks
     call inner private class. use View Holder to see all
      */
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder  {
+
+
         //grab items from the cardview
         CardView cv;
         TextView bookAuthor;
@@ -40,11 +42,23 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
             //bookFab = (FloatingActionButton) itemView.findViewById(R.id.fabAddBookBtn);
 
         }//end of viewholder constructor
+
+
     }//end of inner class
+
+
+    //1. add listener to adapter class
+    private RecyclerViewClickListener mRCL;
+
 
     //constructor of adapter
     public CookBookAdapter(List<mCookbook> bookList) {
-        cookbookList = bookList;
+        updateList(bookList);
+    }
+
+    public void updateList(List<mCookbook> dataset){
+        cookbookList.clear();
+        cookbookList.addAll(dataset);
     }
 
     //create new view when inviked by the layout manager
@@ -71,6 +85,13 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Fragment add_recipe_frag = new AddRecipe_frag();
+                activity.getFragmentManager().beginTransaction()
+                        .replace(R.id.home_container, add_recipe_frag).addToBackStack(null).commit();
+
+               /*
                 if (cookbookList.size() > 0) {
                     cookbookList.remove(i);
                     //notify adapter that item preivously has been removed from the data set
@@ -81,6 +102,7 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
                 } else { //create a label to tell user no more items in the list}
 
                 }
+                */
             }
         });
     }
