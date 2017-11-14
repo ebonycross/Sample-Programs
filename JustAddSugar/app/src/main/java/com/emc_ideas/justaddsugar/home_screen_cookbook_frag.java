@@ -2,10 +2,15 @@ package com.emc_ideas.justaddsugar;
 
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,8 +19,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,7 +37,7 @@ import java.util.List;
 /**
  * Created by ecross on 10/9/17.
  */
-public class home_screen_cookbook_frag extends Fragment {
+public class home_screen_cookbook_frag extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     FragmentManager fm;
     Context mContext;
     private RecyclerView mRecycler;
@@ -42,7 +49,7 @@ public class home_screen_cookbook_frag extends Fragment {
     private List<mCookbook> cBooks;
     private CookBookAdapter bookAdapter;
 
-
+    private CoordinatorLayout coordinatorLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +70,6 @@ public class home_screen_cookbook_frag extends Fragment {
 
 
         status = (TextView) view.findViewById(R.id.dialog_status);
-
         mRecycler = (RecyclerView) view.findViewById(R.id.rv);
 
         //good for if content layout size doesnt really change
@@ -100,22 +106,47 @@ public class home_screen_cookbook_frag extends Fragment {
             }
         }));
 
-
-       /*
-        mCookbook cook = new mCookbook();
-        cook.setAuthor("Ebony");
-        cook.setTitle("Cross Family Cookbook");
-        cBooks.add(cook);
-        */
         //initialize adapter to list of books
         bookAdapter = new CookBookAdapter(cBooks);
+
         //bookAdapter.setListContent(cBooks);
         //set CookBookAdapter as the adapter for RecyclerView
-        mRecycler.setAdapter(bookAdapter);
-        //mRecycler.setItemAnimator(new DefaultItemAnimator());
 
+        //mRecycler.setItemAnimator(new DefaultItemAnimator());
+       // mRecycler.setItemAnimator(new DefaultItemAnimator());
+        //mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+
+        mRecycler.setAdapter(bookAdapter);
+
+
+        // adding item touch helper
+        // only ItemTouchHelper.LEFT added to detect Right to Left swipe
+        // if you want both Right -> Left and Left -> Right
+        // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecycler);
         bookAdapter.notifyDataSetChanged();
 
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback1 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                // Row is swiped from recycler view
+                // remove it from adapter
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+
+        // attaching the touch helper to recycler view
+        new ItemTouchHelper(itemTouchHelperCallback1).attachToRecyclerView(mRecycler);
 
         fm = ((FragmentActivity) mContext).getSupportFragmentManager();
 
@@ -240,6 +271,43 @@ public class home_screen_cookbook_frag extends Fragment {
     public void onAttach(Context context){
         super.onAttach(context);
     }
+
+    /**
+     * callback when recycler view is swiped
+     * item will be removed on swiped
+     * undo option will be provided in snackbar to restore the item
+     */
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
+            // get the removed item name to display it in snack bar
+            String name = cBooks.get(viewHolder.getAdapterPosition()).getTitle();
+
+            // backup of removed item for undo purpose
+            final mCookbook deletedItem = cBooks.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+
+            // remove the item from recycler view
+           // bookAdapter.removeAt(viewHolder.getAdapterPosition());
+
+
+            // showing snack bar with Undo option
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item
+                    bookAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+
+    }
+
 
 
 }
