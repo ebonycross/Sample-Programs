@@ -6,9 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,13 +16,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class home_screen_cookbook_frag extends Fragment {
     private List<mCookbook> cBooks;
     private CookBookAdapter bookAdapter;
 
-    private RecyclerViewClickListener listener;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,13 +53,18 @@ public class home_screen_cookbook_frag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
         View v = inflater.inflate(R.layout.content_home_cook_frag, parent, false);
+        return v;
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceSate){
+        super.onViewCreated(view, savedInstanceSate);
         mContext = getActivity();
 
 
-        status = (TextView) v.findViewById(R.id.dialog_status);
+        status = (TextView) view.findViewById(R.id.dialog_status);
 
-        mRecycler = (RecyclerView) v.findViewById(R.id.rv);
+        mRecycler = (RecyclerView) view.findViewById(R.id.rv);
 
         //good for if content layout size doesnt really change
         if (mRecycler != null) {
@@ -73,6 +79,27 @@ public class home_screen_cookbook_frag extends Fragment {
         mRecycler.setLayoutManager(mLayoutMgr);
 
 
+        mRecycler.addOnItemTouchListener(new RecyclerTouchListener(mContext,
+                mRecycler, new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+                //Values are passing to activity & to fragment as well
+                Toast.makeText(getActivity(), "Single Click on position        :" + position,
+                        Toast.LENGTH_SHORT).show();
+                Fragment add_recipe_frag = new ViewPagerStyler1Activity();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.home_container, add_recipe_frag).addToBackStack(null).commit();
+
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                Toast.makeText(getActivity(), "Long press on position :" + position,
+                        Toast.LENGTH_LONG).show();
+            }
+        }));
+
 
        /*
         mCookbook cook = new mCookbook();
@@ -82,7 +109,7 @@ public class home_screen_cookbook_frag extends Fragment {
         */
         //initialize adapter to list of books
         bookAdapter = new CookBookAdapter(cBooks);
-
+        //bookAdapter.setListContent(cBooks);
         //set CookBookAdapter as the adapter for RecyclerView
         mRecycler.setAdapter(bookAdapter);
         //mRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -93,7 +120,7 @@ public class home_screen_cookbook_frag extends Fragment {
         fm = ((FragmentActivity) mContext).getSupportFragmentManager();
 
 
-        FloatingActionButton cookBookBtn = (FloatingActionButton) v.findViewById(R.id.fabAddBookBtn);
+        FloatingActionButton cookBookBtn = (FloatingActionButton) view.findViewById(R.id.fabAddBookBtn);
         cookBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,9 +148,9 @@ public class home_screen_cookbook_frag extends Fragment {
                                     Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
 
                                     mCookbook c = new mCookbook(s, "");
-                                    cBooks.add(c);
+                                    bookAdapter.insertItem(c);
                                     int position = bookAdapter.getItemCount();
-                                    bookAdapter.notifyItemInserted(position);
+
                                     mRecycler.scrollToPosition(position);
 
                                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -146,7 +173,6 @@ public class home_screen_cookbook_frag extends Fragment {
             }
         });
 
-        return v;
     }
 
 
@@ -154,12 +180,6 @@ public class home_screen_cookbook_frag extends Fragment {
         cBooks = new ArrayList<mCookbook>();
     }
 
-    public void addItem(Intent data) {
-        Bundle bun = data.getExtras();
-        String s1 = bun.getString("title");
-        Toast.makeText(getActivity(), s1, Toast.LENGTH_SHORT).show();
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -171,5 +191,55 @@ public class home_screen_cookbook_frag extends Fragment {
                 }
         }
     }
+
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+
+        private RecyclerViewClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recycleView, final RecyclerViewClickListener clicklistener){
+
+            this.clicklistener=clicklistener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child=recycleView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clicklistener!=null){
+                        clicklistener.onLongClick(child,recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child=rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clicklistener!=null && gestureDetector.onTouchEvent(e)){
+                clicklistener.onClick(child,rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
+    public void onAttach(Context context){
+        super.onAttach(context);
+    }
+
 
 }

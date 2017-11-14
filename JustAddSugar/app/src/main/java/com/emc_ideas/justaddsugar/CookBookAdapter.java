@@ -25,7 +25,7 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
     to get a ref to get item in the list of cookbooks
     call inner private class. use View Holder to see all
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder  {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         //grab items from the cardview
@@ -36,6 +36,7 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             cv = (CardView) itemView.findViewById(R.id.bookHolder);
             bookAuthor = (TextView) itemView.findViewById(R.id.cardAuthor);
             bookTitle = (TextView) itemView.findViewById(R.id.cardTitle);
@@ -43,23 +44,29 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
 
         }//end of viewholder constructor
 
+        @Override
+        public void onClick(View v){}
 
     }//end of inner class
 
 
-    //1. add listener to adapter class
-    private RecyclerViewClickListener mRCL;
+
 
 
     //constructor of adapter
     public CookBookAdapter(List<mCookbook> bookList) {
-        updateList(bookList);
+       // updateList(bookList);
+
+        cookbookList = bookList;
     }
+
+    /*
 
     public void updateList(List<mCookbook> dataset){
         cookbookList.clear();
         cookbookList.addAll(dataset);
     }
+    */
 
     //create new view when inviked by the layout manager
     @Override
@@ -82,16 +89,14 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
         holder.bookAuthor.setText("By Author " + book.getAuthor());
 
         //set a click listener for list to remove item
+        /*
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment add_recipe_frag = new AddRecipe_frag();
-                activity.getFragmentManager().beginTransaction()
-                        .replace(R.id.home_container, add_recipe_frag).addToBackStack(null).commit();
 
-               /*
+
                 if (cookbookList.size() > 0) {
                     cookbookList.remove(i);
                     //notify adapter that item preivously has been removed from the data set
@@ -102,10 +107,41 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
                 } else { //create a label to tell user no more items in the list}
 
                 }
-                */
+
             }
         });
+        */
     }
+
+    //setting the arraylist
+    public void setListContent(List<mCookbook> list_members){
+        cookbookList = list_members;
+        notifyItemRangeChanged(0, cookbookList.size());
+    }
+
+    public void removeAt(int i){
+        if (cookbookList.size() > 0) {
+            cookbookList.remove(i);
+            //notify adapter that item preivously has been removed from the data set
+            notifyItemRemoved(i);
+
+            //notify any registered oberevers that itemCount itmes poistion has changed as well
+            notifyItemRangeChanged(0, cookbookList.size());
+        } else { //create a label to tell user no more items in the list}
+
+        }
+    }
+
+    public void insertItem(mCookbook c){
+        cookbookList.add(c);
+        notifyItemInserted(getItemCount());
+    }
+
+    public void updateList(mCookbook c){
+        insertItem(c);
+    }
+
+
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView rv) {

@@ -8,5 +8,5 @@
     <item android:state_selected="true" android:drawable="@drawable/bg_active_selector" />
 
     <!-- when the button is normal (not pressed) -->
-    <item android:drawable="@drawable/button_bg_round"/>
+    <item android:drawable="@drawable/rounded_cell"/>
 </selector>

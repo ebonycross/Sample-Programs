@@ -25,7 +25,7 @@
             android:name=".homeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".FragmentDialogActivity"></activity>
 
         <meta-data
