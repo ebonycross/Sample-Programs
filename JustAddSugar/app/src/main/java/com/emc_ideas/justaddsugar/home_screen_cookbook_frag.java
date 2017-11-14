@@ -29,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import java.util.List;
 /**
  * Created by ecross on 10/9/17.
  */
-public class home_screen_cookbook_frag extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class home_screen_cookbook_frag extends Fragment  {
     FragmentManager fm;
     Context mContext;
     private RecyclerView mRecycler;
@@ -49,7 +50,7 @@ public class home_screen_cookbook_frag extends Fragment implements RecyclerItemT
     private List<mCookbook> cBooks;
     private CookBookAdapter bookAdapter;
 
-    private CoordinatorLayout coordinatorLayout;
+    private RelativeLayout coordinatorLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,8 @@ public class home_screen_cookbook_frag extends Fragment implements RecyclerItemT
 
         status = (TextView) view.findViewById(R.id.dialog_status);
         mRecycler = (RecyclerView) view.findViewById(R.id.rv);
+
+        coordinatorLayout = (RelativeLayout) view.findViewById(R.id.book_container);
 
         //good for if content layout size doesnt really change
         if (mRecycler != null) {
@@ -119,34 +122,60 @@ public class home_screen_cookbook_frag extends Fragment implements RecyclerItemT
         mRecycler.setAdapter(bookAdapter);
 
 
-        // adding item touch helper
-        // only ItemTouchHelper.LEFT added to detect Right to Left swipe
-        // if you want both Right -> Left and Left -> Right
-        // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecycler);
-        bookAdapter.notifyDataSetChanged();
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback1 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT | ItemTouchHelper.UP) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                Toast.makeText(getActivity(), "on Move", Toast.LENGTH_SHORT).show();
                 return false;
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                // Row is swiped from recycler view
-                // remove it from adapter
-            }
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //Toast.makeText(getActivity(), "on Swiped ", Toast.LENGTH_SHORT).show();
+                //Remove swiped item from list and notify the RecyclerView
+                int position = viewHolder.getAdapterPosition();
+                // get the removed item name to display it in snack bar
 
-            @Override
-            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                String name = cBooks.get(position).getTitle();
+
+
+
+                // backup of removed item for undo purpose
+                final mCookbook deletedItem = cBooks.get(position);
+                final int deletedIndex = position;
+
+
+                // remove the item from recycler view
+                bookAdapter.removeAt(position);
+
+
+                // showing snack bar with Undo option
+                Snackbar snackbar = Snackbar
+                        .make(getView().findViewById(R.id.book_container), "DELETE " + name + "?", Snackbar.LENGTH_LONG);
+
+
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        // undo is selected, restore the deleted item
+                        bookAdapter.restoreItem(deletedItem, deletedIndex);
+                    }
+                });
+
+                snackbar.setDuration(5000);
+                snackbar.setActionTextColor(getResources().getColor(R.color.colorAccent));
+                snackbar.show();
+
+
+                bookAdapter.notifyDataSetChanged();
+
             }
         };
 
-        // attaching the touch helper to recycler view
-        new ItemTouchHelper(itemTouchHelperCallback1).attachToRecyclerView(mRecycler);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(mRecycler);
 
         fm = ((FragmentActivity) mContext).getSupportFragmentManager();
 
@@ -277,10 +306,12 @@ public class home_screen_cookbook_frag extends Fragment implements RecyclerItemT
      * item will be removed on swiped
      * undo option will be provided in snackbar to restore the item
      */
+    /*
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
 
             // get the removed item name to display it in snack bar
+
             String name = cBooks.get(viewHolder.getAdapterPosition()).getTitle();
 
             // backup of removed item for undo purpose
@@ -308,6 +339,6 @@ public class home_screen_cookbook_frag extends Fragment implements RecyclerItemT
 
     }
 
-
+*/
 
 }
