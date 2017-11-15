@@ -22,20 +22,26 @@ public class mRecipe {
      */
     private ArrayList<mIngredient> ingredient;
     private String direction;
-    private double cooktime;
+    private String cooktime;
     private int servingAmt;
     private Date d;
     private DateFormat df;
 
+
+
+    private String title;
+
     public mRecipe(){
         ingredient = new ArrayList<mIngredient>();
         direction = null;
-        cooktime = 0;
+        cooktime = null;
         servingAmt = 0;
         d = new Date();
+        title = null;
     }
 
-    public mRecipe(String dir, double time, int serv){
+    public mRecipe(String t, String dir, String time, int serv){
+        title = t;
         ingredient = new ArrayList<mIngredient>();
         direction = dir;
         cooktime = time;
@@ -73,12 +79,12 @@ public class mRecipe {
         this.direction = direction;
     }
 
-    public double getCooktime() {
+    public String getCooktime() {
         return cooktime;
     }
 
-    public void setCooktime(double cooktime) {
-        this.cooktime = cooktime;
+    public void setCooktime(String cooktime) {
+        this.cooktime = cooktime + " minutes";
     }
 
     public int getServingAmt() {
@@ -93,5 +99,12 @@ public class mRecipe {
        df = new SimpleDateFormat("dd/MM/yyyy");
        return df.format(d);
 
+    }
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

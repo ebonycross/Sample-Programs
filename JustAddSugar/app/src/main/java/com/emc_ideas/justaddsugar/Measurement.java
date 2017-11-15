@@ -15,7 +15,8 @@ public enum Measurement {
     gallon("gal"),
     quart("qt"),
     mililiter("mL"),
-    fuild_ounce("fl oz")
+    fuild_ounce("fl oz"),
+    Null("null")
 
     ;//ends field definition
 
@@ -26,7 +27,7 @@ public enum Measurement {
         this.code = str;
     }
 
-    public String getMeasurement(){
+    public String getMeasurements(){
         return this.code;
     }
 

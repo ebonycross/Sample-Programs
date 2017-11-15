@@ -3,34 +3,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/ingred"
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ingred_amt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/padding_5"
+                    android:paddingRight="@dimen/padding_10"
+                    android:text="Amt"
+                    android:textSize="24sp" />
+
+
+                <TextView
+                    android:id="@+id/ingred_amt_remain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_2"
+                    android:layout_toRightOf="@id/ingred_amt"
+                    android:paddingRight="@dimen/padding_20"
+                    android:text="Rem"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/ingred_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/padding_5"
+                    android:paddingLeft="@dimen/padding_20"
+                    android:paddingRight="@dimen/padding_10"
+                    android:text="ingredient"
+                    android:textSize="24sp" />
+
+
+                <TextView
+                    android:id="@+id/ingred_meas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padding_10"
+                    android:layout_toRightOf="@id/ingred_amt_remain"
+                    android:paddingRight="@dimen/padding_10"
+                    android:text="Meas"
+                    android:textSize="24sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <ImageView
+            android:id="@+id/ingred_cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ingredient"
-            android:paddingLeft="5dp"
-            android:textSize="24sp" />
+            android:gravity="right"
+            android:clickable="true"
+            android:src="@drawable/ic_icons8_cancel"
+            android:tint="@color/colorPrimaryLightPink" />
 
-        <TextView
-            android:id="@+id/whole_num_meas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/remainder_meas"
-            android:text="Ant"
-            android:textSize="24sp"
-            android:paddingRight="5dp"/>
-
-        <TextView
-            android:id="@+id/remainder_meas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="Rem"
-            android:textSize="24sp"
-            android:paddingRight="5dp"/>
-    </RelativeLayout>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

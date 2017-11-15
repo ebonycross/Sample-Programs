@@ -3,20 +3,12 @@ package com.emc_ideas.justaddsugar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 public class homeActivity extends AppCompatActivity {
     //android.support.v4.app.FragmentManager fm1 = getSupportFragmentManager();
@@ -31,14 +23,14 @@ public class homeActivity extends AppCompatActivity {
 
         Fragment fragment = fm.findFragmentById(R.id.welcomeContainer);
 
-        fragment = new home_screen_cookbook_frag();
+        fragment = new List_cookbooks_home_frag();
         fm.beginTransaction().replace(R.id.home_container, fragment).commit();
 
 
         //create screens to naviagate to
-        final Fragment home_frag = new home_screen_cookbook_frag();
+        final Fragment home_frag = new List_cookbooks_home_frag();
         final Fragment profile_frag = new profile_screen_frag();
-        final Fragment recipe_frag = new recipe_screen_frag();
+        final Fragment recipe_frag = new List_allRecipes_frag();
         final Fragment setting_frag = new settings_screen_frag();
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navViewBar);

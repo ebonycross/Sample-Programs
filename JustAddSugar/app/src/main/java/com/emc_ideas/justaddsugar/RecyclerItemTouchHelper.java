@@ -42,7 +42,7 @@ import android.view.View;
 
         @Override
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            final View foregroundView = ((CookBookAdapter.ViewHolder) viewHolder).cv;
+            final View foregroundView = ((CookBookAdapter.ViewHolder) viewHolder).viewForeground;
             getDefaultUIUtil().clearView(foregroundView);
         }
 

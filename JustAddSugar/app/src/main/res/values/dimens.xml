@@ -13,4 +13,9 @@
     <dimen name="shadow">15dp</dimen>
     <dimen name="button_width">20dp</dimen>
     <dimen name="button_height">20dp</dimen>
+    <dimen name="padding_2">2dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_15">15dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
 </resources>

@@ -3,7 +3,6 @@ package com.emc_ideas.justaddsugar;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,10 @@ import android.view.ViewGroup;
  * Created by ecross on 11/13/17.
  */
 
-public class Group_info_frag extends Fragment {
+public class List_Pager_Group_info_frag extends Fragment {
 
     public static Fragment newInstance(Context context){
-        Group_info_frag gif = new Group_info_frag();
+        List_Pager_Group_info_frag gif = new List_Pager_Group_info_frag();
         return gif;
     }
 

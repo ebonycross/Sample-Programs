@@ -1,33 +1,27 @@
 package com.emc_ideas.justaddsugar;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 /**
  * Created by ecross on 11/13/17.
  */
 
-public class Cookbook_Recipes_frag extends Fragment  {
+public class List_Pager_Recipes_frag extends Fragment  {
 
     private Context mContext;
     private ImageView addRecipeBtn;
 
     public static Fragment newInstance(Context context){
-        Cookbook_Recipes_frag crf = new Cookbook_Recipes_frag();
+        List_Pager_Recipes_frag crf = new List_Pager_Recipes_frag();
         return crf;
     }
 
@@ -50,8 +44,8 @@ public class Cookbook_Recipes_frag extends Fragment  {
                 Toast.makeText(getActivity(), "Clicked",
                         Toast.LENGTH_SHORT).show();
 
-                Fragment add_recipe_frag2 = new AddRecipe_frag();
-                FragmentManager fm = Cookbook_Recipes_frag.this.getActivity().getSupportFragmentManager();
+                Fragment add_recipe_frag2 = new Add_RecipeFrag();
+                FragmentManager fm = List_Pager_Recipes_frag.this.getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                         ft.replace(R.id.home_container, add_recipe_frag2).addToBackStack(null).commit();
 

@@ -39,7 +39,7 @@ public class CookBookAdapter extends RecyclerView.Adapter<CookBookAdapter.ViewHo
             cv = (CardView) itemView.findViewById(R.id.bookHolder);
             bookAuthor = (TextView) itemView.findViewById(R.id.cardAuthor);
             bookTitle = (TextView) itemView.findViewById(R.id.cardTitle);
-            //viewBackground = itemView.findViewById(R.id.view_background);
+            viewBackground = itemView.findViewById(R.id.view_background);
             viewForeground = itemView.findViewById(R.id.view_foreground);
             //bookFab = (FloatingActionButton) itemView.findViewById(R.id.fabAddBookBtn);
 
