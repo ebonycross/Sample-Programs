@@ -109,13 +109,13 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/form_food_wrapper"
+                            android:id="@+id/form_serving_wrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="5dp">
 
                             <EditText
-                                android:id="@+id/form_servings"
+                                android:id="@+id/form_serving"
                                 style="@style/userForms"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -146,13 +146,13 @@
                         android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/form_serving_wrapper"
+                            android:id="@+id/form_ingred_name_wrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="15dp">
 
                             <EditText
-                                android:id="@+id/form_serving"
+                                android:id="@+id/form_ingred_name"
                                 style="@style/userForms"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="100dp">
 
                             <RelativeLayout
                                 android:id="@+id/np_container"
@@ -207,7 +207,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentTop="true"
-                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginBottom="10dp"
                                     android:gravity="center"
                                     android:hint="Select Measurement Type:"
                                     android:inputType="text"
@@ -217,7 +217,8 @@
                                 <HorizontalScrollView
                                     android:id="@+id/hv"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="true">
 
 
                                     <LinearLayout
@@ -357,6 +358,17 @@
                             </RelativeLayout>
 
                         </RelativeLayout>
+
+                        <Button
+                            style="@style/MyButton"
+                            android:id="@+id/add_RecipeBtn"
+                            android:background="@color/colorLightGrey"
+                            android:layout_width="350dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/padding_10"
+                            android:layout_marginTop="@dimen/padding_20"
+                            android:text="Add Ingredient" />
 
 
                     </LinearLayout>

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -40,7 +41,8 @@ public class Add_RecipeFrag extends Fragment {
     private Intent i;
 
     private Adapter_Ingredient ingredAdapter;
-    private EditText title, cooktime, servings;
+    private EditText title, cooktime, servings, ingred_name;
+    private TextInputEditText title_wrapper, cooktime_wrapper, serving_wrapper, ingred_name_wrapper;
     private mRecipe recipe;
     private ArrayList<mIngredient> ingredients;
     private Button submitBtn;
@@ -67,6 +69,7 @@ public class Add_RecipeFrag extends Fragment {
 
         mContext = getActivity();
 
+/*
         mAddRecycler = (RecyclerView) view.findViewById(R.id.rv_addRecipe);
 
 
@@ -119,8 +122,10 @@ public class Add_RecipeFrag extends Fragment {
             public void onClick(View view) {
 
                 try {
+                    String name = ingred_name.getText().toString();
 
                     mIngredient c = new mIngredient();
+                    c.setFoodItem(name);
                     ingredAdapter.insertItem(c);
                     int position = ingredAdapter.getItemCount();
 
@@ -131,7 +136,9 @@ public class Add_RecipeFrag extends Fragment {
                 }
             }
         });
-        
+
+        */
+
     }
 
     public void initItems() {
@@ -139,6 +146,15 @@ public class Add_RecipeFrag extends Fragment {
         submitBtn = (Button) getView().findViewById(R.id.submit_recipe_btn);
         cooktime = (EditText) getView().findViewById(R.id.form_cooktime);
         servings = (EditText) getView().findViewById(R.id.form_serving);
+        ingred_name = (EditText) getView().findViewById(R.id.form_ingred_name);
+
+
+        title_wrapper = (TextInputEditText) getView().findViewById(R.id.form_title_wrapper);
+        cooktime_wrapper = (TextInputEditText) getView().findViewById(R.id.form_cooktime_wrapper);
+        serving_wrapper = (TextInputEditText) getView().findViewById(R.id.form_serving_wrapper);
+        ingred_name_wrapper = (TextInputEditText) getView().findViewById(R.id.form_ingred_name_wrapper);
+
+        add_RecipeBtn = (Button) getView().findViewById(R.id.add_RecipeBtn);
     }
 
 //button listners
@@ -168,19 +184,19 @@ public class Add_RecipeFrag extends Fragment {
         boolean flag = true;
         int counter = 0;
         if (title.getText().toString().length() == 0) {
-            title.setError("Enter valid name");
+            title_wrapper.setError("Enter valid name");
             flag = false;
             counter++;
         }
 
         if (cooktime.getText().toString().length() == 0) {
-            cooktime.setError("Enter valid cook time");
+            cooktime_wrapper.setError("Enter valid cook time");
             flag = false;
             counter++;
         }
 
         if (servings.getText().toString().length() == 0) {
-            cooktime.setError("Enter valid amount of servings");
+            cooktime_wrapper.setError("Enter valid amount of servings");
             flag = false;
             counter++;
         }

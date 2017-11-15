@@ -47,6 +47,7 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
     private TextView status;
     private EditText title;
     private Intent i;
+    private RecyclerTouchListener l;
 
     private List<mCookbook> cBooks;
     private CookBookAdapter bookAdapter;
@@ -89,7 +90,10 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
         mRecycler.setLayoutManager(mLayoutMgr);
 
 
-        mRecycler.addOnItemTouchListener(new RecyclerTouchListener(mContext,
+
+
+
+        mRecycler.addOnItemTouchListener(new RecyclerTouchListener1(mContext,
                 mRecycler, new RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
@@ -109,6 +113,7 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
                         Toast.LENGTH_LONG).show();
             }
         }));
+
 
         //initialize adapter to list of books
         bookAdapter = new CookBookAdapter(cBooks);
@@ -204,6 +209,100 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
     }
 
 
+    /*INNER CLASS*/
+    class RecyclerTouchListener1 implements RecyclerView.OnItemTouchListener {
+
+        private RecyclerViewClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener1(Context context, final RecyclerView recycleView, final RecyclerViewClickListener clicklistener) {
+
+            this.clicklistener = clicklistener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recycleView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clicklistener != null) {
+                        clicklistener.onLongClick(child, recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clicklistener != null && gestureDetector.onTouchEvent(e)) {
+                clicklistener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }//END of INNER CLASS
+
+
+
+
+
+
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    /**
+     * callback when recycler view is swiped
+     * item will be removed on swiped
+     * undo option will be provided in snackbar to restore the item
+     */
+    /*
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
+            // get the removed item name to display it in snack bar
+
+            String name = cBooks.get(viewHolder.getAdapterPosition()).getTitle();
+
+            // backup of removed item for undo purpose
+            final mCookbook deletedItem = cBooks.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+
+            // remove the item from recycler view
+           // bookAdapter.removeAt(viewHolder.getAdapterPosition());
+
+
+            // showing snack bar with Undo option
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item
+                    bookAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+
+    }
+
+*/
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
         Toast.makeText(getActivity(), "on Move", Toast.LENGTH_SHORT).show();
         return false;

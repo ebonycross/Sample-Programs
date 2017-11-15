@@ -33,7 +33,8 @@
     <color name="colorGradDark">#43C6AC</color>
 
     <!---        Pink Colors       -->
-    <color name="colorAccent">#fad1a7</color>
+    <color name="colorAccent">#fdbb77</color>
+    <color name="colorLightAccent">#fad1a7</color>
     <color name="colorPrimaryBlue">#ff7456</color>
     <color name="colorPrimaryLightPink">#ffa683</color>
     <color name="colorPrimaryDarkPink">#c6432b</color>
