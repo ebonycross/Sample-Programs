@@ -44,35 +44,17 @@ public class List_Pager_Recipes_frag extends Fragment  {
                 Toast.makeText(getActivity(), "Clicked",
                         Toast.LENGTH_SHORT).show();
 
+
                 Fragment add_recipe_frag2 = new Add_RecipeFrag();
                 FragmentManager fm = List_Pager_Recipes_frag.this.getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                         ft.replace(R.id.home_container, add_recipe_frag2).addToBackStack(null).commit();
+
 
             }
         });
 
         return v;
     }
-
-    /*
-
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceSate) {
-        super.onViewCreated(view, savedInstanceSate);
-        initComponents();
-
-
-
-
-
-    }
-
-    public void initComponents(){
-
-
-
-    }
-    */
-
 
 }

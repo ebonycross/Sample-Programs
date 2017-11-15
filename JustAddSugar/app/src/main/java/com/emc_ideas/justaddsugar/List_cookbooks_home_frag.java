@@ -91,15 +91,16 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
 
 
 
-
-
-        mRecycler.addOnItemTouchListener(new RecyclerTouchListener1(mContext,
+        mRecycler.addOnItemTouchListener(new RecyclerTouchListener(mContext,
                 mRecycler, new RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
                 //Values are passing to activity & to fragment as well
-                Toast.makeText(getActivity(), "Single Click on position        :" + position,
+                Toast.makeText(getActivity(), "Single Click on position   :" + position,
                         Toast.LENGTH_SHORT).show();
+
+
+
                 Fragment add_recipe_frag = new ViewPagerStyler1Activity();
                 getFragmentManager().beginTransaction()
                         .replace(R.id.home_container, add_recipe_frag).addToBackStack(null).commit();
@@ -114,12 +115,8 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
             }
         }));
 
-
         //initialize adapter to list of books
         bookAdapter = new CookBookAdapter(cBooks);
-
-        //bookAdapter.setListContent(cBooks);
-        //set CookBookAdapter as the adapter for RecyclerView
 
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         mRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
@@ -128,6 +125,9 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
 
         //ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+
+
+
 
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -187,6 +187,7 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
                 //show it
                 alertDialog.show();
             }
+
         });
 
     }
@@ -210,12 +211,12 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
 
 
     /*INNER CLASS*/
-    class RecyclerTouchListener1 implements RecyclerView.OnItemTouchListener {
+    class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         private RecyclerViewClickListener clicklistener;
         private GestureDetector gestureDetector;
 
-        public RecyclerTouchListener1(Context context, final RecyclerView recycleView, final RecyclerViewClickListener clicklistener) {
+        public RecyclerTouchListener(Context context, final RecyclerView recycleView, final RecyclerViewClickListener clicklistener) {
 
             this.clicklistener = clicklistener;
             gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {

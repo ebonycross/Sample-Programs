@@ -1,5 +1,6 @@
 package com.emc_ideas.justaddsugar;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,6 +32,7 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
 
         TextView amt, remain_amt, ingred_name, meas;
         ImageView ingred_cancelBtn;
+        LinearLayout ingred_view;
 
 
         //public RelativeLayout viewBackground, viewForeground;
@@ -42,6 +45,7 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
             ingred_name = (TextView) itemView.findViewById(R.id.ingred_title);
             meas = (TextView) itemView.findViewById(R.id.ingred_meas);
             ingred_cancelBtn = (ImageView) itemView.findViewById(R.id.ingred_cancelBtn);
+            ingred_view = (LinearLayout) itemView.findViewById(R.id.add_Recipe_holder);
 
             //bookFab = (FloatingActionButton) itemView.findViewById(R.id.fabAddBookBtn);
 

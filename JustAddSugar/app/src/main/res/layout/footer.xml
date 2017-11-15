@@ -12,7 +12,7 @@
         android:id="@+id/btn1"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/bg_selector_info" />
+        android:background="@drawable/rounded_cell2" />
 
     <Button
         android:layout_height="12dp"

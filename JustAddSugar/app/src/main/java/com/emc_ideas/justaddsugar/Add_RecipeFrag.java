@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -16,7 +17,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,7 +45,7 @@ public class Add_RecipeFrag extends Fragment {
 
     private Adapter_Ingredient ingredAdapter;
     private EditText title, cooktime, servings, ingred_name;
-    private TextInputEditText title_wrapper, cooktime_wrapper, serving_wrapper, ingred_name_wrapper;
+    private TextInputLayout title_wrapper, cooktime_wrapper, serving_wrapper, ingred_name_wrapper;
     private mRecipe recipe;
     private ArrayList<mIngredient> ingredients;
     private Button submitBtn;
@@ -62,14 +65,16 @@ public class Add_RecipeFrag extends Fragment {
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceSate) {
         super.onViewCreated(view, savedInstanceSate);
+
         initItems();
+
         recipe = new mRecipe();
         ingredients = new ArrayList<mIngredient>();
-        submitBtn.setOnClickListener(new SubmitRecipeBtnClick());
+        //submitBtn.setOnClickListener(new SubmitRecipeBtnClick());
 
         mContext = getActivity();
 
-/*
+
         mAddRecycler = (RecyclerView) view.findViewById(R.id.rv_addRecipe);
 
 
@@ -84,8 +89,8 @@ public class Add_RecipeFrag extends Fragment {
 
         mAddRecycler.setLayoutManager(mLayoutMgr);
 
-
-        mAddRecycler.addOnItemTouchListener(new RecyclerTouchListener(mContext,
+/*
+        mAddRecycler.addOnItemTouchListener(new RecyclerTouchListener2(mContext,
                 mAddRecycler, new RecyclerViewClickListener() {
             @Override
             public void onClick(View v, int position) {
@@ -137,24 +142,29 @@ public class Add_RecipeFrag extends Fragment {
             }
         });
 
-        */
+*/
 
     }
 
     public void initItems() {
+
+
+
         title = (EditText) getView().findViewById(R.id.form_title);
-        submitBtn = (Button) getView().findViewById(R.id.submit_recipe_btn);
         cooktime = (EditText) getView().findViewById(R.id.form_cooktime);
         servings = (EditText) getView().findViewById(R.id.form_serving);
         ingred_name = (EditText) getView().findViewById(R.id.form_ingred_name);
 
 
-        title_wrapper = (TextInputEditText) getView().findViewById(R.id.form_title_wrapper);
-        cooktime_wrapper = (TextInputEditText) getView().findViewById(R.id.form_cooktime_wrapper);
-        serving_wrapper = (TextInputEditText) getView().findViewById(R.id.form_serving_wrapper);
-        ingred_name_wrapper = (TextInputEditText) getView().findViewById(R.id.form_ingred_name_wrapper);
+        title_wrapper = (TextInputLayout) getView().findViewById(R.id.form_title_wrapper);
+        cooktime_wrapper = (TextInputLayout) getView().findViewById(R.id.form_cooktime_wrapper);
+        serving_wrapper = (TextInputLayout) getView().findViewById(R.id.form_serving_wrapper);
+        ingred_name_wrapper = (TextInputLayout) getView().findViewById(R.id.form_ingred_name_wrapper);
+
 
         add_RecipeBtn = (Button) getView().findViewById(R.id.add_RecipeBtn);
+        submitBtn = (Button) getView().findViewById(R.id.submit_recipe_btn);
+        
     }
 
 //button listners
@@ -184,19 +194,25 @@ public class Add_RecipeFrag extends Fragment {
         boolean flag = true;
         int counter = 0;
         if (title.getText().toString().length() == 0) {
-            title_wrapper.setError("Enter valid name");
+            //title_wrapper.setError("Enter valid name");
             flag = false;
             counter++;
         }
 
         if (cooktime.getText().toString().length() == 0) {
-            cooktime_wrapper.setError("Enter valid cook time");
+           // cooktime_wrapper.setError("Enter valid cook time");
             flag = false;
             counter++;
         }
 
         if (servings.getText().toString().length() == 0) {
-            cooktime_wrapper.setError("Enter valid amount of servings");
+           serving_wrapper.setError("Enter valid amount of servings");
+            flag = false;
+            counter++;
+        }
+
+        if (ingred_name.getText().toString().length() == 0) {
+            ingred_name_wrapper.setError("Enter valid ingredient");
             flag = false;
             counter++;
         }
@@ -207,6 +223,7 @@ public class Add_RecipeFrag extends Fragment {
             return false;
     }
 
+    /*INNNER CLASSES*/
     private class SubmitRecipeBtnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -214,5 +231,53 @@ public class Add_RecipeFrag extends Fragment {
         }
 
     }
+/*
+
+    class RecyclerTouchListener2 implements RecyclerView.OnItemTouchListener {
+
+        private RecyclerViewClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener2(Context context, final RecyclerView recycleView, final RecyclerViewClickListener clicklistener) {
+
+            this.clicklistener = clicklistener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recycleView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clicklistener != null) {
+                        clicklistener.onLongClick(child, recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clicklistener != null && gestureDetector.onTouchEvent(e)) {
+                clicklistener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+    /*END of INNNER CLASSES*/
+
 
 }
