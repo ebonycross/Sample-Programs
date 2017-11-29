@@ -23,8 +23,10 @@ public class homeActivity extends AppCompatActivity {
 
         Fragment fragment = fm.findFragmentById(R.id.welcomeContainer);
 
+        getSupportActionBar().setTitle("Welcome");
         fragment = new List_cookbooks_home_frag();
         fm.beginTransaction().replace(R.id.home_container, fragment).commit();
+
 
 
         //create screens to naviagate to

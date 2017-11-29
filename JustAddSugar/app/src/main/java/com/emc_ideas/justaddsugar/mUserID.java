@@ -7,19 +7,21 @@ import java.util.*;
 public class mUserID {
 
     private UUID uID;
-    private String username;
+    private String fname;
+    private String lname;
     private String email;
     private String password;
 
     public mUserID(){
-        username = email = password = null;
+        fname = lname = email = password = null;
 
     }
 
-    public mUserID(String name, String em, String pw){
+    public mUserID(String first, String last, String em, String pw){
         //generate random ID identifier
         uID = UUID.randomUUID();
-        username = name;
+        fname = first;
+        lname = last;
         email = em;
         password = pw;
     }
@@ -30,14 +32,6 @@ public class mUserID {
 
     public void setuID(UUID uID) {
         this.uID = uID;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
@@ -55,4 +49,21 @@ public class mUserID {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
 }

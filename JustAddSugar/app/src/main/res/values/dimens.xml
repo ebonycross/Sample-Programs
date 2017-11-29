@@ -8,6 +8,10 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="headers">28sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="sp_24">24sp</dimen>
+    <dimen name="sp_28">28sp</dimen>
     <dimen name="titles">16sp</dimen>
     <dimen name="padding">10dp</dimen>
     <dimen name="shadow">15dp</dimen>

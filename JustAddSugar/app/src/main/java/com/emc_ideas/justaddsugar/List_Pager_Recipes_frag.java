@@ -22,6 +22,8 @@ public class List_Pager_Recipes_frag extends Fragment  {
 
     public static Fragment newInstance(Context context){
         List_Pager_Recipes_frag crf = new List_Pager_Recipes_frag();
+
+
         return crf;
     }
 
@@ -35,6 +37,7 @@ public class List_Pager_Recipes_frag extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
         View v = inflater.inflate(R.layout.book_recipe_list_info, parent, false);
+        ((homeActivity) getActivity()).getSupportActionBar().setTitle("List of Recipes");
 
         addRecipeBtn = (ImageView) v.findViewById(R.id.iv_addbtn);
         addRecipeBtn.setOnClickListener(new View.OnClickListener(){
@@ -48,6 +51,7 @@ public class List_Pager_Recipes_frag extends Fragment  {
                 Fragment add_recipe_frag2 = new Add_RecipeFrag();
                 FragmentManager fm = List_Pager_Recipes_frag.this.getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
+
                         ft.replace(R.id.home_container, add_recipe_frag2).addToBackStack(null).commit();
 
 

@@ -5,17 +5,13 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.emc_ideas.justaddsugar"
-        minSdkVersion 24
-        targetSdkVersion 25
+        minSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
-    signingConfigs {
-
-    }
-
+    signingConfigs {}
     buildTypes {
         release {
             minifyEnabled false
@@ -23,7 +19,6 @@ android {
         }
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

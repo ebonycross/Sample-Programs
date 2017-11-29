@@ -14,8 +14,8 @@ public class mIngredient {
 
     public mIngredient(){
        foodItem = null;
-        quantity = new int[2];
-        measurement = Measurement.Null;
+        //quantity = new int[2];
+        //measurement = Measurement.Null;
     }
 
     public mIngredient(String item){

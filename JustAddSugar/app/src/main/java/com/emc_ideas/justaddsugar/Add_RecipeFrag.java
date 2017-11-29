@@ -47,13 +47,14 @@ public class Add_RecipeFrag extends Fragment {
     private EditText title, cooktime, servings, ingred_name;
     private TextInputLayout title_wrapper, cooktime_wrapper, serving_wrapper, ingred_name_wrapper;
     private mRecipe recipe;
-    private ArrayList<mIngredient> ingredients;
+    public List<mIngredient> ingredients;
     private Button submitBtn;
     private Button add_RecipeBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initItems();
     }
 
     @Override
@@ -66,10 +67,25 @@ public class Add_RecipeFrag extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceSate) {
         super.onViewCreated(view, savedInstanceSate);
 
-        initItems();
+        title = (EditText) getView().findViewById(R.id.form_title);
+        cooktime = (EditText) getView().findViewById(R.id.form_cooktime);
+        servings = (EditText) getView().findViewById(R.id.form_serving);
+        ingred_name = (EditText) getView().findViewById(R.id.form_ingred_name);
 
-        recipe = new mRecipe();
-        ingredients = new ArrayList<mIngredient>();
+        title_wrapper = (TextInputLayout) getView().findViewById(R.id.form_title_wrapper);
+        cooktime_wrapper = (TextInputLayout) getView().findViewById(R.id.form_cooktime_wrapper);
+        serving_wrapper = (TextInputLayout) getView().findViewById(R.id.form_serving_wrapper);
+        ingred_name_wrapper = (TextInputLayout) getView().findViewById(R.id.form_ingred_name_wrapper);
+
+
+        add_RecipeBtn = (Button) getView().findViewById(R.id.add_RecipeBtn);
+
+        submitBtn = (Button) getView().findViewById(R.id.submit_recipe_btn);
+
+
+
+        // recipe = new mRecipe();
+        //ingredients = new ArrayList<mIngredient>();
         //submitBtn.setOnClickListener(new SubmitRecipeBtnClick());
 
         mContext = getActivity();
@@ -88,6 +104,17 @@ public class Add_RecipeFrag extends Fragment {
         mLayoutMgr = new LinearLayoutManager(mContext);
 
         mAddRecycler.setLayoutManager(mLayoutMgr);
+
+        mIngredient m = new mIngredient();
+        m.setFoodItem("Food");
+        Toast.makeText(getActivity(), "Food :" + m.getFoodItem() ,
+                Toast.LENGTH_SHORT).show();
+
+
+        //initialize adapter to list of books
+        ingredAdapter = new Adapter_Ingredient(ingredients, getContext());
+        ingredAdapter.insertItem(m);
+
 
 /*
         mAddRecycler.addOnItemTouchListener(new RecyclerTouchListener2(mContext,
@@ -108,16 +135,13 @@ public class Add_RecipeFrag extends Fragment {
         }));
 
 
-        //initialize adapter to list of books
-        ingredAdapter = new Adapter_Ingredient(ingredients);
 
-        //bookAdapter.setListContent(cBooks);
-        //set CookBookAdapter as the adapter for RecyclerView
-
+*/
         mAddRecycler.setItemAnimator(new DefaultItemAnimator());
         mAddRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
 
         mAddRecycler.setAdapter(ingredAdapter);
+        ingredAdapter.notifyDataSetChanged();
 
         fm = ((FragmentActivity) mContext).getSupportFragmentManager();
 
@@ -139,32 +163,20 @@ public class Add_RecipeFrag extends Fragment {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
                 }
+
             }
         });
 
-*/
+
 
     }
 
     public void initItems() {
+        ingredients = new ArrayList<mIngredient>();
+    }
 
-
-
-        title = (EditText) getView().findViewById(R.id.form_title);
-        cooktime = (EditText) getView().findViewById(R.id.form_cooktime);
-        servings = (EditText) getView().findViewById(R.id.form_serving);
-        ingred_name = (EditText) getView().findViewById(R.id.form_ingred_name);
-
-
-        title_wrapper = (TextInputLayout) getView().findViewById(R.id.form_title_wrapper);
-        cooktime_wrapper = (TextInputLayout) getView().findViewById(R.id.form_cooktime_wrapper);
-        serving_wrapper = (TextInputLayout) getView().findViewById(R.id.form_serving_wrapper);
-        ingred_name_wrapper = (TextInputLayout) getView().findViewById(R.id.form_ingred_name_wrapper);
-
-
-        add_RecipeBtn = (Button) getView().findViewById(R.id.add_RecipeBtn);
-        submitBtn = (Button) getView().findViewById(R.id.submit_recipe_btn);
-        
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
 //button listners
@@ -200,13 +212,13 @@ public class Add_RecipeFrag extends Fragment {
         }
 
         if (cooktime.getText().toString().length() == 0) {
-           // cooktime_wrapper.setError("Enter valid cook time");
+            // cooktime_wrapper.setError("Enter valid cook time");
             flag = false;
             counter++;
         }
 
         if (servings.getText().toString().length() == 0) {
-           serving_wrapper.setError("Enter valid amount of servings");
+            serving_wrapper.setError("Enter valid amount of servings");
             flag = false;
             counter++;
         }
@@ -223,6 +235,7 @@ public class Add_RecipeFrag extends Fragment {
             return false;
     }
 
+
     /*INNNER CLASSES*/
     private class SubmitRecipeBtnClick implements View.OnClickListener {
         @Override
@@ -232,7 +245,6 @@ public class Add_RecipeFrag extends Fragment {
 
     }
 /*
-
     class RecyclerTouchListener2 implements RecyclerView.OnItemTouchListener {
 
         private RecyclerViewClickListener clicklistener;

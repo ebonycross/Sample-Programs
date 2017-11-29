@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-  >
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/view_foreground2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/bookHolder2"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="15dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="center"
         android:id="@+id/add_Recipe_holder">
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -20,15 +35,26 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/ingred_amt"
+                    android:id="@+id/ingred_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/padding_5"
                     android:paddingRight="@dimen/padding_10"
+                    android:text="#"
+                    android:textSize="@dimen/sp_20" />
+
+                <TextView
+                    android:id="@+id/ingred_amt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ingred_num"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/padding_5"
+                    android:paddingRight="@dimen/padding_5"
                     android:text="Amt"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/sp_20" />
 
 
                 <TextView
@@ -37,20 +63,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_2"
                     android:layout_toRightOf="@id/ingred_amt"
-                    android:paddingRight="@dimen/padding_20"
+                    android:paddingRight="@dimen/padding_5"
                     android:text="Rem"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/sp_20" />
 
                 <TextView
                     android:id="@+id/ingred_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/padding_5"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
                     android:paddingLeft="@dimen/padding_20"
-                    android:paddingRight="@dimen/padding_10"
+                    android:paddingRight="@dimen/padding_20"
                     android:text="ingredient"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/sp_20" />
 
 
                 <TextView
@@ -61,7 +87,7 @@
                     android:layout_toRightOf="@id/ingred_amt_remain"
                     android:paddingRight="@dimen/padding_10"
                     android:text="Meas"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/sp_20" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -82,4 +108,6 @@
             android:tint="@color/colorPrimaryLightPink" />
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+    </RelativeLayout>
+</RelativeLayout>

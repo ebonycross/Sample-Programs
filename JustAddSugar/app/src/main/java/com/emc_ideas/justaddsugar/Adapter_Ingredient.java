@@ -1,5 +1,6 @@
 package com.emc_ideas.justaddsugar;
 
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.ViewHolder> {
     private List<mIngredient> ingredientList;
+    Context context;
 
     /*
     to get a ref to get item in the list of cookbooks
@@ -30,9 +32,11 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
 
         //grab items from the cardview
 
-        TextView amt, remain_amt, ingred_name, meas;
+        TextView amt, remain_amt, ingred_name, meas, num;
         ImageView ingred_cancelBtn;
-        LinearLayout ingred_view;
+        CardView cv;
+
+        //LinearLayout ingred_view;
 
 
         //public RelativeLayout viewBackground, viewForeground;
@@ -40,14 +44,14 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+            cv = (CardView) itemView.findViewById(R.id.bookHolder2);
+            num = (TextView) itemView.findViewById(R.id.ingred_num);
             amt = (TextView) itemView.findViewById(R.id.ingred_amt);
             remain_amt = (TextView) itemView.findViewById(R.id.ingred_amt_remain);
             ingred_name = (TextView) itemView.findViewById(R.id.ingred_title);
             meas = (TextView) itemView.findViewById(R.id.ingred_meas);
             ingred_cancelBtn = (ImageView) itemView.findViewById(R.id.ingred_cancelBtn);
-            ingred_view = (LinearLayout) itemView.findViewById(R.id.add_Recipe_holder);
-
-            //bookFab = (FloatingActionButton) itemView.findViewById(R.id.fabAddBookBtn);
+            //ingred_view = (LinearLayout) itemView.findViewById(R.id.add_Recipe_holder);
 
         }//end of viewholder constructor
 
@@ -59,10 +63,11 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
 
 
     //constructor of adapter
-    public Adapter_Ingredient(List<mIngredient> bookList) {
+    public Adapter_Ingredient(List<mIngredient> bookList, Context context) {
         //updateList(bookList);
+        this.context = context;
 
-        ingredientList = bookList;
+        this.ingredientList = bookList;
     }
 
 
@@ -75,25 +80,27 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
 
     //create new view when inviked by the layout manager
     @Override
-    public Adapter_Ingredient.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //create a new view
-        LayoutInflater li = LayoutInflater.from(parent.getContext());
-        View v = li.inflate(R.layout.ingredient_list, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_list, parent, false);
+        ViewHolder vh = new ViewHolder(view);
 
         return vh;
     }
 
     //replace the contents of a view that is invoked by the laoyout manager
     @Override
-    public void onBindViewHolder(Adapter_Ingredient.ViewHolder holder, final int i) {
+    public void onBindViewHolder(ViewHolder holder, final int i) {
+
         //1. get the element from arraylist at this position
         //2. replace contents of the view with that element
         mIngredient ingredient = ingredientList.get(i);
-        holder.amt.setText(ingredient.getAmt());
-        holder.remain_amt.setText(ingredient.getRemaingAmt());
-        holder.meas.setText(ingredient.getMeasurement());
+       // holder.amt.setText(ingredient.getAmt());
+        //holder.remain_amt.setText(ingredient.getRemaingAmt());
+        //holder.meas.setText(ingredient.getMeasurement());
+        holder.num.setText((i+1)+".");
         holder.ingred_name.setText(ingredient.getFoodItem());
+
     }
 
     //setting the arraylist
@@ -126,8 +133,8 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
 
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView rv) {
-        super.onAttachedToRecyclerView(rv);
+    public void onAttachedToRecyclerView(RecyclerView rv1) {
+        super.onAttachedToRecyclerView(rv1);
     }
 
     @Override
