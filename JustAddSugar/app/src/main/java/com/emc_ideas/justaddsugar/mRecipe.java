@@ -1,17 +1,21 @@
 package com.emc_ideas.justaddsugar;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.emc_ideas.justaddsugar.mIngredient;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ecross on 11/5/17.
  */
 
-public class mRecipe {
+public class mRecipe implements Parcelable{
     /*
     object contains:
     1. list of ingredients (incl. measurement amt)
@@ -20,12 +24,15 @@ public class mRecipe {
     4. cooktime
     5. serving amount
      */
-    private ArrayList<mIngredient> ingredient;
+    private List<mIngredient> ingredient;
     private String direction;
     private String cooktime;
     private int servingAmt;
+    private String pushID;
+    private String date;
     private Date d;
     private DateFormat df;
+    private String author;
 
 
 
@@ -36,33 +43,42 @@ public class mRecipe {
         direction = null;
         cooktime = null;
         servingAmt = 0;
-        d = new Date();
-        title = null;
+        date = getPublishDate();
+        author = pushID =title = null;
     }
-
     public mRecipe(String t, String dir, String time, int serv){
         title = t;
         ingredient = new ArrayList<mIngredient>();
         direction = dir;
         cooktime = time;
         servingAmt = serv;
-        d = new Date();
+        date = getPublishDate();
     }
 
-    public ArrayList<mIngredient> getIngredient() {
+    public mRecipe(String t, String dir, String time, int serv, String pushID){
+        title = t;
+        ingredient = new ArrayList<mIngredient>();
+        direction = dir;
+        cooktime = time;
+        servingAmt = serv;
+        date = getPublishDate();
+        this.pushID = pushID;
+    }
+
+    public List<mIngredient> getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(ArrayList<mIngredient> ingredient) {
+    public void setIngredient(List<mIngredient> ingredient) {
         this.ingredient = ingredient;
     }
 
-    public ArrayList<mIngredient> addIngredient(mIngredient ingred){
+    public List<mIngredient> addIngredient(mIngredient ingred){
         ingredient.add(ingred);
         return ingredient;
     }
 
-    public ArrayList<mIngredient> removeIngredient(mIngredient ingred, int i){
+    public List<mIngredient> removeIngredient(mIngredient ingred, int i){
         ingredient.remove(i);
         return ingredient;
     }
@@ -96,6 +112,7 @@ public class mRecipe {
     }
 
     public String getPublishDate(){
+        d = new Date();
        df = new SimpleDateFormat("dd/MM/yyyy");
        return df.format(d);
 
@@ -106,5 +123,71 @@ public class mRecipe {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPushID() {
+        return pushID;
+    }
+
+    public void setPushID(String pushID) {
+        this.pushID = pushID;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    //paracable interface
+    public static final Parcelable.Creator<mRecipe> CREATOR = new Parcelable.Creator<mRecipe>() {
+        @Override
+        public mRecipe createFromParcel(Parcel source) {
+            return new mRecipe(source);
+
+        }
+
+        @Override
+        public mRecipe[] newArray(int size) {
+            return new mRecipe[size];
+        }
+    };
+
+
+    //parcelling part
+    public mRecipe(Parcel in){
+        this.cooktime = in.readString();
+        this.pushID = in.readString();
+        this.servingAmt = in.readInt();
+        this.title = in.readString();
+        this.date = in.readString();
+        this.author = in.readString();
+        this.ingredient = in.readTypedList(ingredient, mIngredient.CREATOR);
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel outParcel, int flags) {
+        outParcel.writeString(cooktime);
+        outParcel.writeString(pushID);
+        outParcel.writeString(title);
+        outParcel.writeString(author);
+        outParcel.writeString(date);
+        outParcel.writeTypedList(ingredient);
     }
 }

@@ -1,15 +1,18 @@
 package com.emc_ideas.justaddsugar;
 
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by ecross on 11/5/17.
  */
 
-public class mIngredient {
+public class mIngredient implements Parcelable {
     Measurement measurement;
     String foodItem;
-    int [] quantity;
+    int quantity1;
+    int remain_quantity;
     //mCookbook book = new mCookbook();
 
     public mIngredient(){
@@ -22,7 +25,7 @@ public class mIngredient {
         foodItem = item;
        // book.setTitle(title);
         measurement = Measurement.Null;
-        quantity = new int[2];
+        quantity1 = remain_quantity = 0;
     }
 
     public mIngredient(String item, int quan, int remaining_quan){
@@ -60,18 +63,54 @@ public class mIngredient {
     }
 
     public int getAmt() {
-        return quantity[0];
+        return quantity1;
     }
 
     public int getRemaingAmt() {
-        return quantity[1];
+        return remain_quantity;
     }
 
     public void setAmt(int amt) {
-        quantity[0] = amt;
+        quantity1 = amt;
     }
     public void setRemaingAmt(int amt) {
-        quantity[1] = amt;
+        remain_quantity = amt;
+    }
+
+
+    //paracable interface
+    public static final Parcelable.Creator<mIngredient> CREATOR = new Parcelable.Creator<mIngredient>() {
+        @Override
+        public mIngredient createFromParcel(Parcel source) {
+            return new mIngredient(source);
+
+        }
+
+        @Override
+        public mIngredient[] newArray(int size) {
+            return new mIngredient[size];
+        }
+    };
+
+
+    //parcelling part
+    public mIngredient(Parcel in){
+        this.foodItem = in.readString();
+        this.quantity1 = in.readInt();
+        this.remain_quantity = in.readInt();
+
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel outParcel, int flags) {
+        outParcel.writeString(foodItem);
+        outParcel.writeInt(quantity1);
+        outParcel.writeInt(remain_quantity);
     }
 
 }

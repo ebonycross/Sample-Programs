@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static android.content.ContentValues.TAG;
 
@@ -28,6 +30,12 @@ public class welcome_screen_frag extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser user;
+
+    //Firebase objects
+    // Write a message to the database
+    private FirebaseDatabase database;
+    private DatabaseReference userRef;
+    FirebaseUser currentUser;
     private EditText userEmail;
     private EditText userPassword;
 
@@ -36,7 +44,6 @@ public class welcome_screen_frag extends Fragment {
         super.onCreate(savedInstanceState);
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     @Override
@@ -83,8 +90,7 @@ public class welcome_screen_frag extends Fragment {
         signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //signOut();
+                signOut();
             }
         });
 
@@ -128,7 +134,7 @@ public class welcome_screen_frag extends Fragment {
     public void onAttach() {
         super.onAttach(getContext());
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+       currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
     // [END on_start_check_user]

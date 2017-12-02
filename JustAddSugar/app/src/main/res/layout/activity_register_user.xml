@@ -31,25 +31,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="84dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_gravity="bottom"
             android:orientation="vertical">
 
             <!--email login-->
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/signupfnameWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/signupfname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="First Name"
+                        android:inputType="textEmailAddress" />
+                </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/signupUsernameWrapper"
+                android:id="@+id/signuplnameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/signupUsername"
+                    android:id="@+id/signuplname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:hint="Last Name"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
+
 
             <!--zipcode-->
             <android.support.design.widget.TextInputLayout
@@ -61,7 +77,7 @@
                     android:id="@+id/signupUserEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:hint="Email"
                     android:inputType="textEmailAddress" />
 
@@ -78,7 +94,8 @@
                     android:id="@+id/signupUserPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:hint="Password"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
