@@ -22,4 +22,23 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_home">Welcome</string>
+
+
+    <string-array name="meas_array">
+        <item>TSP</item>
+        <item>TBSP</item>
+        <item>LB</item>
+        <item>G</item>
+        <item>OZ</item>
+        <item>CUP</item>
+        <item>L</item>
+        <item>GAL</item>
+        <item>ML</item>
+        <item>QT</item>
+        <item>FL OZ</item>
+    </string-array>
+
+
+
+
 </resources>

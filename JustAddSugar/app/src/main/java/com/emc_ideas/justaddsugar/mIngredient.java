@@ -11,24 +11,25 @@ import android.os.Parcelable;
 public class mIngredient implements Parcelable {
     Measurement measurement;
     String foodItem;
-    int quantity1;
-    int remain_quantity;
+    String quantity1;
+    String remain_quantity;
     //mCookbook book = new mCookbook();
 
     public mIngredient(){
-       foodItem = null;
+        foodItem = null;
+        quantity1 = remain_quantity = null;
         //quantity = new int[2];
         //measurement = Measurement.Null;
     }
 
     public mIngredient(String item){
         foodItem = item;
-       // book.setTitle(title);
+        // book.setTitle(title);
         measurement = Measurement.Null;
-        quantity1 = remain_quantity = 0;
+        quantity1 = remain_quantity = null;
     }
 
-    public mIngredient(String item, int quan, int remaining_quan){
+    public mIngredient(String item, String quan, String remaining_quan){
         foodItem = item;
         setAmt(quan);
         setRemaingAmt(remaining_quan);
@@ -36,22 +37,24 @@ public class mIngredient implements Parcelable {
         //book.setTitle(title);
     }
 
-    public mIngredient(String item, int quan, int remaining_quan, Measurement m){
+    public mIngredient(String item, String quan, String remaining_quan, String m){
         foodItem = item;
         setAmt(quan);
         setRemaingAmt(remaining_quan);
         setMeasurement(m);
-       // book.setTitle(title);
+        // book.setTitle(title);
     }
 
     public String getMeasurement() {
-        return measurement.getMeasurements();
+        return measurement.getMeasurementsString();
     }
 
-    public void setMeasurement(Measurement measurement) {
-        //add a switch??
+    public void setMeasurement(String measure) {
 
-        this.measurement = measurement;
+        for(Measurement m : Measurement.values()){
+            if(measure.equals(m.getMeasurementsString()))
+                this.measurement = m;
+        }
     }
 
     public String getFoodItem() {
@@ -62,43 +65,29 @@ public class mIngredient implements Parcelable {
         this.foodItem = foodItem;
     }
 
-    public int getAmt() {
+    public String getAmt() {
         return quantity1;
     }
 
-    public int getRemaingAmt() {
+    public String getRemaingAmt() {
         return remain_quantity;
     }
 
-    public void setAmt(int amt) {
+    public void setAmt(String amt) {
         quantity1 = amt;
     }
-    public void setRemaingAmt(int amt) {
+    public void setRemaingAmt(String amt) {
         remain_quantity = amt;
     }
 
 
-    //paracable interface
-    public static final Parcelable.Creator<mIngredient> CREATOR = new Parcelable.Creator<mIngredient>() {
-        @Override
-        public mIngredient createFromParcel(Parcel source) {
-            return new mIngredient(source);
-
-        }
-
-        @Override
-        public mIngredient[] newArray(int size) {
-            return new mIngredient[size];
-        }
-    };
 
 
-    //parcelling part
-    public mIngredient(Parcel in){
-        this.foodItem = in.readString();
-        this.quantity1 = in.readInt();
-        this.remain_quantity = in.readInt();
-
+    protected mIngredient(Parcel in) {
+        measurement = (Measurement) in.readValue(Measurement.class.getClassLoader());
+        foodItem = in.readString();
+        quantity1 = in.readString();
+        remain_quantity = in.readString();
     }
 
     @Override
@@ -107,10 +96,23 @@ public class mIngredient implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel outParcel, int flags) {
-        outParcel.writeString(foodItem);
-        outParcel.writeInt(quantity1);
-        outParcel.writeInt(remain_quantity);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(measurement);
+        dest.writeString(foodItem);
+        dest.writeString(quantity1);
+        dest.writeString(remain_quantity);
     }
 
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<mIngredient> CREATOR = new Parcelable.Creator<mIngredient>() {
+        @Override
+        public mIngredient createFromParcel(Parcel in) {
+            return new mIngredient(in);
+        }
+
+        @Override
+        public mIngredient[] newArray(int size) {
+            return new mIngredient[size];
+        }
+    };
 }

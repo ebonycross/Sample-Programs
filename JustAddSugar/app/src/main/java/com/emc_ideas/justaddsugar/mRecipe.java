@@ -43,7 +43,7 @@ public class mRecipe implements Parcelable{
         direction = null;
         cooktime = null;
         servingAmt = 0;
-        date = getPublishDate();
+        date = getDate();
         author = pushID =title = null;
     }
     public mRecipe(String t, String dir, String time, int serv){
@@ -52,7 +52,7 @@ public class mRecipe implements Parcelable{
         direction = dir;
         cooktime = time;
         servingAmt = serv;
-        date = getPublishDate();
+        date = getDate();
     }
 
     public mRecipe(String t, String dir, String time, int serv, String pushID){
@@ -61,7 +61,7 @@ public class mRecipe implements Parcelable{
         direction = dir;
         cooktime = time;
         servingAmt = serv;
-        date = getPublishDate();
+        date = getDate();
         this.pushID = pushID;
     }
 
@@ -111,10 +111,10 @@ public class mRecipe implements Parcelable{
         this.servingAmt = servingAmt;
     }
 
-    public String getPublishDate(){
-        d = new Date();
-       df = new SimpleDateFormat("dd/MM/yyyy");
-       return df.format(d);
+    public String getPublishDate(Date dt, DateFormat df2){
+        dt = new Date();
+       df2 = new SimpleDateFormat("dd/MM/yyyy");
+       return df2.format(d);
 
     }
     public String getTitle() {
@@ -150,30 +150,25 @@ public class mRecipe implements Parcelable{
     }
 
     //paracable interface
-    public static final Parcelable.Creator<mRecipe> CREATOR = new Parcelable.Creator<mRecipe>() {
-        @Override
-        public mRecipe createFromParcel(Parcel source) {
-            return new mRecipe(source);
 
+
+    protected mRecipe(Parcel in) {
+        if (in.readByte() == 0x01) {
+            ingredient = new ArrayList<mIngredient>();
+            in.readList(ingredient, mIngredient.class.getClassLoader());
+        } else {
+            ingredient = null;
         }
-
-        @Override
-        public mRecipe[] newArray(int size) {
-            return new mRecipe[size];
-        }
-    };
-
-
-    //parcelling part
-    public mRecipe(Parcel in){
-        this.cooktime = in.readString();
-        this.pushID = in.readString();
-        this.servingAmt = in.readInt();
-        this.title = in.readString();
-        this.date = in.readString();
-        this.author = in.readString();
-        this.ingredient = in.readTypedList(ingredient, mIngredient.CREATOR);
-
+        direction = in.readString();
+        cooktime = in.readString();
+        servingAmt = in.readInt();
+        pushID = in.readString();
+        date = in.readString();
+       // long tmpD = in.readLong();
+        //d = tmpD != -1 ? new Date(tmpD) : null;
+       // df = (DateFormat) in.readValue(DateFormat.class.getClassLoader());
+        author = in.readString();
+        title = in.readString();
     }
 
     @Override
@@ -182,12 +177,35 @@ public class mRecipe implements Parcelable{
     }
 
     @Override
-    public void writeToParcel(Parcel outParcel, int flags) {
-        outParcel.writeString(cooktime);
-        outParcel.writeString(pushID);
-        outParcel.writeString(title);
-        outParcel.writeString(author);
-        outParcel.writeString(date);
-        outParcel.writeTypedList(ingredient);
+    public void writeToParcel(Parcel dest, int flags) {
+        if (ingredient == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(ingredient);
+        }
+        dest.writeString(direction);
+        dest.writeString(cooktime);
+        dest.writeInt(servingAmt);
+        dest.writeString(pushID);
+        dest.writeString(date);
+        //dest.writeLong(d != null ? d.getTime() : -1L);
+        //dest.writeValue(df);
+        dest.writeString(author);
+        dest.writeString(title);
     }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<mRecipe> CREATOR = new Parcelable.Creator<mRecipe>() {
+        @Override
+        public mRecipe createFromParcel(Parcel in) {
+            return new mRecipe(in);
+        }
+
+        @Override
+        public mRecipe[] newArray(int size) {
+            return new mRecipe[size];
+        }
+    };
 }
+

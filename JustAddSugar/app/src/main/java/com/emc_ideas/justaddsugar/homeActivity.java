@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 public class homeActivity extends AppCompatActivity {
+    private Bundle bundle;
     //android.support.v4.app.FragmentManager fm1 = getSupportFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class homeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.topToolbar);
         setSupportActionBar(toolbar);
+        bundle = new Bundle();
 
         final FragmentManager fm = getSupportFragmentManager();
 
@@ -68,8 +70,14 @@ public class homeActivity extends AppCompatActivity {
 
         });//end of nav-menu item listener
 
+    }
 
+    public void saveData(String id, Bundle data){
+       bundle.putAll(data);
+    }
 
+    public Bundle getData(){
+        return bundle;
     }
 
 }

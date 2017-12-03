@@ -17,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -51,6 +52,8 @@ import java.util.Map;
  * Created by ecross on 10/9/17.
  */
 public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+
+    public static String BOOK_FRAG_ID = "book_frag";
     FragmentManager fm;
     Context mContext;
     private RecyclerView mRecycler;
@@ -149,11 +152,27 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
                 Toast.makeText(getActivity(), "Single Click on position   :" + position,
                         Toast.LENGTH_SHORT).show();
 
+                /***** BUNDLE COOKBOOK OBJECT***/
+                Bundle bundle = new Bundle();
 
+
+                bundle.putParcelable(Constants.COOKBOOK_OBJ_KEY,cBooks.get(position));
+                Boolean t = bundle.isEmpty();
+
+                Log.i(Constants.COOKBOOK_OBJ_KEY, "bundle empty? " +t );
+
+                //bundle.putString(Constants.COOKBOOK_ID_KEY, cBooks.get(position).getId());
+                //notifyUser("sending cookbook " + cBooks.get(position).getTitle());
+                Fragment recipe_list = new List_Pager_Recipes_frag();
+
+                /***** BUNDLE COOKBOOK OBJECT***/
 
                 Fragment add_recipe_frag = new ViewPagerStyler1Activity();
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.home_container, add_recipe_frag).addToBackStack(null).commit();
+               add_recipe_frag.setArguments(bundle);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+              FragmentTransaction ft = fm.beginTransaction();
+                //recipe_list.setArguments(bundle);
+                 ft.replace(R.id.home_container, add_recipe_frag).addToBackStack(null).commit();
 
 
             }
@@ -162,6 +181,23 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
             public void onLongClick(View view, int position) {
                 Toast.makeText(getActivity(), "Long press on position :" + position,
                         Toast.LENGTH_LONG).show();
+
+                /***** BUNDLE COOKBOOK OBJECT***/
+                Bundle bundle = new Bundle();
+                Fragment recipe_list = new List_Pager_Recipes_frag();
+                bundle.putParcelable(Constants.COOKBOOK_OBJ_KEY,cBooks.get(position));
+                notifyUser("sending cookbook " + cBooks.get(position).getTitle());
+                //bundle.putString(Constants.COOKBOOK_ID_KEY, cBooks.get(position).getId());
+                /***** BUNDLE COOKBOOK OBJECT***/
+
+                //recipe_list.setArguments(bundle);
+
+                Fragment add_recipe_frag = new ViewPagerStyler1Activity();
+
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                add_recipe_frag.setArguments(bundle);
+                ft.replace(R.id.home_container, add_recipe_frag).addToBackStack(null).commit();
             }
         }));
 
@@ -231,12 +267,12 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
                                    bookUpdates.put(bookID+"/members/"+userid, currentUser);
                                    newChildRef.updateChildren(bookUpdates);
 
-                                    notifyUser("MEMBER: "+ c.getMembers(0).getLname());
+                                   // notifyUser("MEMBER: "+ c.getMembers(0).getLname());
                                    //newChildRef.setValue(currentUser);
 
 
                                     bookAdapter.insertItem(c);
-                                    notifyUser("after");
+                                    //notifyUser("after");
                                     int position = bookAdapter.getItemCount();
 
 

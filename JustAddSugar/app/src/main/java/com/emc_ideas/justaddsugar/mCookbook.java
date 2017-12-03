@@ -19,11 +19,11 @@ public class mCookbook implements Parcelable {
     private mUserID user;
     private String author;
     private String id;
-    private R.drawable picture;
+    //private R.drawable picture;
     private List<mRecipe> recipeList;
 
     public mCookbook() {
-        title = id = null;
+        title = id= author = null;
         membership = new ArrayList<mUserID>();
         recipeList = new ArrayList<mRecipe>();
     }
@@ -52,6 +52,7 @@ public class mCookbook implements Parcelable {
         recipeList = new ArrayList<mRecipe>();
     }
 
+    /*
     public mCookbook(String t, R.drawable icon) {
 
         title = t;
@@ -59,7 +60,7 @@ public class mCookbook implements Parcelable {
         picture = icon;
         recipeList = new ArrayList<mRecipe>();
     }
-
+*/
     public String getTitle() {
         return title;
     }
@@ -98,15 +99,15 @@ public class mCookbook implements Parcelable {
         this.id = id;
     }
 
+    /*
+        public R.drawable getPicture() {
+            return picture;
+        }
 
-    public R.drawable getPicture() {
-        return picture;
-    }
-
-    public void setPicture(R.drawable picture) {
-        this.picture = picture;
-    }
-
+        public void setPicture(R.drawable picture) {
+            this.picture = picture;
+        }
+    */
     public mUserID getMembers(int i) {
         return membership.get(i);
     }
@@ -120,30 +121,30 @@ public class mCookbook implements Parcelable {
     }
 
 
-    //paracable interface
-    public static final Parcelable.Creator<mCookbook> CREATOR = new Creator<mCookbook>() {
-        @Override
-        public mCookbook createFromParcel(Parcel source) {
-            return new mCookbook(source);
 
+    protected mCookbook(Parcel in) {
+        title = in.readString();
+        author = in.readString();
+        id = in.readString();
+        membership = new ArrayList<mUserID>();
+        in.readTypedList(membership, mUserID.CREATOR);
+        recipeList = new ArrayList<mRecipe>();
+        in.readTypedList(recipeList, mRecipe.CREATOR);
+       /* if (in.readByte() == 0x01) {
+
+            in.readList(membership, mUserID.class.getClassLoader());
+        } else {
+            membership = null;
         }
-
-        @Override
-        public mCookbook[] newArray(int size) {
-            return new mCookbook[size];
-        }
-    };
+        user = (mUserID) in.readValue(mUserID.class.getClassLoader());
 
 
-    //parcelling part
-    public mCookbook(Parcel in){
-        this.id = in.readString();
-        this.author = in.readString();
-        this.title = in.readString();
-        this.membership = new ArrayList<mUserID>();
-        this.recipeList = new ArrayList<>();
-        this.membership = in.readTypedList(membership, mUserID.CREATOR);
-        this.recipeList = in.readTypedList(recipeList, mRecipe.CREATOR);
+        if (in.readByte() == 0x01) {
+            recipeList = new ArrayList<mRecipe>();
+            in.readList(recipeList, mRecipe.class.getClassLoader());
+        } else {
+            recipeList = null;
+        }*/
     }
 
     @Override
@@ -152,12 +153,39 @@ public class mCookbook implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel outParcel, int flags) {
-        outParcel.writeString(author);
-        outParcel.writeString(id);
-        outParcel.writeString(title);
-        outParcel.writeTypedList(membership);
-        outParcel.writeTypedList(recipeList);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.author);
+        dest.writeString(this.id);
+        dest.writeTypedList(membership);
+        dest.writeTypedList(recipeList);
+       /* if (membership == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(membership);
+        }
+        dest.writeValue(user);
+        dest.writeString(author);
+        dest.writeString(id);
+        if (recipeList == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(recipeList);
+        }*/
     }
 
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<mCookbook> CREATOR = new Parcelable.Creator<mCookbook>() {
+        @Override
+        public mCookbook createFromParcel(Parcel in) {
+            return new mCookbook(in);
+        }
+
+        @Override
+        public mCookbook[] newArray(int size) {
+            return new mCookbook[size];
+        }
+    };
 }

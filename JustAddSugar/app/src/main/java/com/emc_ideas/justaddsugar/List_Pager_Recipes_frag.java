@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,13 @@ import android.widget.Toast;
 
 public class List_Pager_Recipes_frag extends Fragment  {
 
+    public static final String TAG = "LIST OF RECIPE FRAG";
+
     private Context mContext;
     private ImageView addRecipeBtn;
+    private Bundle bundle;
+    private String book_pushID;
+    private mCookbook book;
 
     public static Fragment newInstance(Context context){
         List_Pager_Recipes_frag crf = new List_Pager_Recipes_frag();
@@ -27,10 +33,20 @@ public class List_Pager_Recipes_frag extends Fragment  {
         return crf;
     }
 
+    public static Fragment newInstance(Context context, Bundle g){
+        Bundle args = g;
+        //args.putParcelable(Constants.COOKBOOK_OBJ_KEY,c);
+        List_Pager_Recipes_frag crf = new List_Pager_Recipes_frag();
+        crf.setArguments(args);
+
+
+        return crf;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setRetainInstance(true);
+
 
     }
 
@@ -38,6 +54,24 @@ public class List_Pager_Recipes_frag extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
         View v = inflater.inflate(R.layout.book_recipe_list_info, parent, false);
         ((homeActivity) getActivity()).getSupportActionBar().setTitle("List of Recipes");
+
+
+        Bundle args = getArguments();
+
+        if(args!= null){
+            book = (mCookbook) args.get(Constants.COOKBOOK_OBJ_KEY);
+
+            Log.i(TAG,"LIST OF RECIPE FRAG TITLE "+ book.getTitle());
+
+
+
+            //book_pushID = bundle.getString(Constants.COOKBOOK_ID_KEY);
+            Toast.makeText(getActivity(), "List FRAG Found cookbook nammed " + book.getTitle() + "and pusid is " + book.getId(), Toast.LENGTH_LONG).show();
+
+        }
+        else{
+            Toast.makeText(getActivity(), "NOT FOUND!!!", Toast.LENGTH_LONG).show();
+        }
 
         addRecipeBtn = (ImageView) v.findViewById(R.id.iv_addbtn);
         addRecipeBtn.setOnClickListener(new View.OnClickListener(){

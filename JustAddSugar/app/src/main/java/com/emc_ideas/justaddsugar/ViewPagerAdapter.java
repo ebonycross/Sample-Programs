@@ -1,6 +1,7 @@
 package com.emc_ideas.justaddsugar;
 
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
@@ -13,13 +14,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
    private Context mContext;
+   private Bundle b;
     //Tab titles
    // private String[] tabs = {"List of Recipes", "Group Info"};
 
 
-    public ViewPagerAdapter(FragmentManager fm, Context context){
+    public ViewPagerAdapter(FragmentManager fm, Context context, Bundle args){
         super(fm);
         mContext = context;
+        b = args;
    }
 
 
@@ -28,7 +31,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         switch (index){
             case 0:
                 //list of recipes
-                f = List_Pager_Recipes_frag.newInstance(mContext);
+                f = List_Pager_Recipes_frag.newInstance(mContext,b);
                 break;
             case 1:
                 //multi-user information

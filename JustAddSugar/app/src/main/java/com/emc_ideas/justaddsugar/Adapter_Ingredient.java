@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
         TextView amt, remain_amt, ingred_name, meas, num;
         ImageView ingred_cancelBtn;
         CardView cv;
+        Spinner quan_spin, remain_spin, meas_spin;
 
         //LinearLayout ingred_view;
 
@@ -51,6 +53,9 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
             ingred_name = (TextView) itemView.findViewById(R.id.ingred_title);
             meas = (TextView) itemView.findViewById(R.id.ingred_meas);
             ingred_cancelBtn = (ImageView) itemView.findViewById(R.id.ingred_cancelBtn);
+            //quan_spin = (Spinner) itemView.findViewById(R.id.spinner1);
+            //remain_spin = (Spinner) itemView.findViewById(R.id.spinner2);
+            //meas_spin = (Spinner) itemView.findViewById(R.id.spinner3);
             //ingred_view = (LinearLayout) itemView.findViewById(R.id.add_Recipe_holder);
 
         }//end of viewholder constructor
@@ -100,6 +105,8 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
         //holder.meas.setText(ingredient.getMeasurement());
         holder.num.setText((i+1)+".");
         holder.ingred_name.setText(ingredient.getFoodItem());
+        holder.amt.setText(ingredient.getAmt());
+        holder.remain_amt.setText(ingredient.getRemaingAmt());
 
     }
 

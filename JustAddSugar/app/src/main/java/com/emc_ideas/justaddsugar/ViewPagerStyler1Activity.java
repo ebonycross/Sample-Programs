@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created by ecross on 11/13/17.
@@ -19,25 +21,50 @@ public class ViewPagerStyler1Activity extends Fragment {
     private ViewPager _mViewPager;
     private ViewPagerAdapter _adapter;
     private Button _btn1,_btn2;
+    Bundle bundle;
+    String book_pushID;
+    mCookbook book;
 
+    public static final String TAG = "MONITOR EVENTS";
 
     /** Called when the activity is first created. */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setUpView();
         setTab();
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
         View v = inflater.inflate(R.layout.cookbook_recipe_list, parent, false);
+        bundle = getArguments();
+
+        if(bundle != null){
+            book = (mCookbook) bundle.get(Constants.COOKBOOK_OBJ_KEY);
+
+            Log.i(TAG,"LIST OF RECIPE TITLE "+ book.getTitle());
+
+
+
+            //book_pushID = bundle.getString(Constants.COOKBOOK_ID_KEY);
+            //Toast.makeText(getActivity(), "Found cookbook nammed " + book.getTitle() + "and pusid is " + book.getId(), Toast.LENGTH_LONG).show();
+
+        }
+        else{
+            Toast.makeText(getActivity(), "NOT FOUND!!!", Toast.LENGTH_LONG).show();
+        }
+
+
         return v;
     }
 
     private void setUpView(){
         _mViewPager = (ViewPager) getView().findViewById(R.id.pager);
-        this._adapter = new ViewPagerAdapter(getChildFragmentManager(),getActivity());
+        this._adapter = new ViewPagerAdapter(getChildFragmentManager(),getActivity(),bundle);
         _mViewPager.setAdapter(_adapter);
         _mViewPager.setCurrentItem(0);
         initButton();

@@ -7,7 +7,7 @@ import java.util.*;
  * Created by ecross on 10/4/17.
  */
 
-public class mUserID  implements Parcelable{
+public class mUserID implements Parcelable {
 
 
     private String fname;
@@ -17,14 +17,14 @@ public class mUserID  implements Parcelable{
     private String id;
 
     public mUserID(){
-       // fname = lname = email = password = null;
+        // fname = lname = email = password = null;
 
     }
     public mUserID(mUserID user){
-         fname = user.fname;
-         lname = user.lname;
-         email = user.email;
-         id = user.id;
+        fname = user.fname;
+        lname = user.lname;
+        email = user.email;
+        id = user.id;
     }
 
 
@@ -37,7 +37,7 @@ public class mUserID  implements Parcelable{
 
     public mUserID(String first, String last, String em, String i){
         //generate random ID identifier
-       fname = first;
+        fname = first;
         lname = last;
         email = em;
         id = i;
@@ -78,29 +78,15 @@ public class mUserID  implements Parcelable{
     }
 
 
-    //paracable interface
-    public static final Parcelable.Creator<mUserID> CREATOR = new Parcelable.Creator<mUserID>() {
-        @Override
-        public mUserID createFromParcel(Parcel source) {
-            return new mUserID(source);
-
-        }
-
-        @Override
-        public mUserID[] newArray(int size) {
-            return new mUserID[size];
-        }
-    };
 
 
-    //parcelling part
-    public mUserID(Parcel in){
-        this.id = in.readString();
-        this.fname = in.readString();
-        this.lname = in.readString();
-        this.password = in.readString();
-        this.email = in.readString();
 
+    protected mUserID(Parcel in) {
+        fname = in.readString();
+        lname = in.readString();
+        email = in.readString();
+        password = in.readString();
+        id = in.readString();
     }
 
     @Override
@@ -109,13 +95,24 @@ public class mUserID  implements Parcelable{
     }
 
     @Override
-    public void writeToParcel(Parcel outParcel, int flags) {
-        outParcel.writeString(fname);
-        outParcel.writeString(id);
-        outParcel.writeString(lname);
-        outParcel.writeString(password);
-        outParcel.writeString(email);
-
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(fname);
+        dest.writeString(lname);
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(id);
     }
 
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<mUserID> CREATOR = new Parcelable.Creator<mUserID>() {
+        @Override
+        public mUserID createFromParcel(Parcel in) {
+            return new mUserID(in);
+        }
+
+        @Override
+        public mUserID[] newArray(int size) {
+            return new mUserID[size];
+        }
+    };
 }
