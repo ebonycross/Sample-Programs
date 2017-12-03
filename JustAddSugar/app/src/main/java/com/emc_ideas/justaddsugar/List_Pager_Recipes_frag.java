@@ -25,6 +25,7 @@ public class List_Pager_Recipes_frag extends Fragment  {
     private Bundle bundle;
     private String book_pushID;
     private mCookbook book;
+    private Bundle args;
 
     public static Fragment newInstance(Context context){
         List_Pager_Recipes_frag crf = new List_Pager_Recipes_frag();
@@ -34,10 +35,10 @@ public class List_Pager_Recipes_frag extends Fragment  {
     }
 
     public static Fragment newInstance(Context context, Bundle g){
-        Bundle args = g;
+        Bundle arg = g;
         //args.putParcelable(Constants.COOKBOOK_OBJ_KEY,c);
         List_Pager_Recipes_frag crf = new List_Pager_Recipes_frag();
-        crf.setArguments(args);
+        crf.setArguments(arg);
 
 
         return crf;
@@ -56,7 +57,7 @@ public class List_Pager_Recipes_frag extends Fragment  {
         ((homeActivity) getActivity()).getSupportActionBar().setTitle("List of Recipes");
 
 
-        Bundle args = getArguments();
+        args = getArguments();
 
         if(args!= null){
             book = (mCookbook) args.get(Constants.COOKBOOK_OBJ_KEY);
@@ -81,8 +82,21 @@ public class List_Pager_Recipes_frag extends Fragment  {
                 Toast.makeText(getActivity(), "Clicked",
                         Toast.LENGTH_SHORT).show();
 
+                /***** BUNDLE COOKBOOK OBJECT***/
+                Bundle bundle = new Bundle();
+
+
+                bundle.putParcelable(Constants.COOKBOOK_OBJ_KEY,book);
+                Boolean t = bundle.isEmpty();
+
+                Log.i(TAG, "bundle empty? " +t );
+
+
 
                 Fragment add_recipe_frag2 = new Add_RecipeFrag();
+                add_recipe_frag2.setArguments(bundle);
+                /***** BUNDLE COOKBOOK OBJECT***/
+
                 FragmentManager fm = List_Pager_Recipes_frag.this.getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
 

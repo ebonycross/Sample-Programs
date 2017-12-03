@@ -27,7 +27,7 @@ public class mRecipe implements Parcelable{
     private List<mIngredient> ingredient;
     private String direction;
     private String cooktime;
-    private int servingAmt;
+    private String servingAmt;
     private String pushID;
     private String date;
     private Date d;
@@ -42,11 +42,11 @@ public class mRecipe implements Parcelable{
         ingredient = new ArrayList<mIngredient>();
         direction = null;
         cooktime = null;
-        servingAmt = 0;
+        servingAmt = null;
         date = getDate();
         author = pushID =title = null;
     }
-    public mRecipe(String t, String dir, String time, int serv){
+    public mRecipe(String t, String dir, String time, String serv){
         title = t;
         ingredient = new ArrayList<mIngredient>();
         direction = dir;
@@ -55,7 +55,7 @@ public class mRecipe implements Parcelable{
         date = getDate();
     }
 
-    public mRecipe(String t, String dir, String time, int serv, String pushID){
+    public mRecipe(String t, String dir, String time, String serv, String pushID){
         title = t;
         ingredient = new ArrayList<mIngredient>();
         direction = dir;
@@ -103,18 +103,18 @@ public class mRecipe implements Parcelable{
         this.cooktime = cooktime + " minutes";
     }
 
-    public int getServingAmt() {
+    public String getServingAmt() {
         return servingAmt;
     }
 
-    public void setServingAmt(int servingAmt) {
+    public void setServingAmt(String servingAmt) {
         this.servingAmt = servingAmt;
     }
 
-    public String getPublishDate(Date dt, DateFormat df2){
-        dt = new Date();
-       df2 = new SimpleDateFormat("dd/MM/yyyy");
-       return df2.format(d);
+    public String getPublishDate(){
+        d = new Date();
+       df = new SimpleDateFormat("dd/MM/yyyy");
+       return df.format(d);
 
     }
     public String getTitle() {
@@ -137,7 +137,8 @@ public class mRecipe implements Parcelable{
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate() {
+        date = getPublishDate();
         this.date = date;
     }
 
@@ -161,7 +162,7 @@ public class mRecipe implements Parcelable{
         }
         direction = in.readString();
         cooktime = in.readString();
-        servingAmt = in.readInt();
+        servingAmt = in.readString();
         pushID = in.readString();
         date = in.readString();
        // long tmpD = in.readLong();
@@ -186,7 +187,7 @@ public class mRecipe implements Parcelable{
         }
         dest.writeString(direction);
         dest.writeString(cooktime);
-        dest.writeInt(servingAmt);
+        dest.writeString(servingAmt);
         dest.writeString(pushID);
         dest.writeString(date);
         //dest.writeLong(d != null ? d.getTime() : -1L);

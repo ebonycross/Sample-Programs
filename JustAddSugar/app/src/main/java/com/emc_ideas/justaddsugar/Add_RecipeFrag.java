@@ -34,8 +34,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ecross on 11/7/17.
@@ -50,29 +58,88 @@ public class Add_RecipeFrag extends Fragment  {
     private RecyclerView mAddRecycler;
     private RecyclerView.LayoutManager mLayoutMgr;
     private Intent i;
+    private String ingredient_ID;
+    private String recipe_ID;
 
     private Adapter_Ingredient ingredAdapter;
-    private EditText title, cooktime, servings, ingred_name;
+    private EditText title, cooktime, servings, ingred_name, directions;
     private TextInputLayout title_wrapper, cooktime_wrapper, serving_wrapper, ingred_name_wrapper;
     private mRecipe recipe = new mRecipe();
+
     public List<mIngredient> ingredients;
     private Button submitBtn;
     private Button add_RecipeBtn, cancel_igBtn;
     private mIngredient ig;
     private mCookbook book;
-    private Bundle bundle;
+    private Bundle bundle,args;
     private String book_pushID;
     private TextView amt, fraction, meas_amt;
+
+
+    //database componennts Map
+    private Map<String, Object> recipe_map = new HashMap<>();
+    private Map<String, Object> ingred_map = new HashMap<>();
+    private Map<String, Object> bookUpdates = new HashMap<>();
+    private String userid;
+
+    //FIREBASE
+    //Firebase objects
+    //declare database objects
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser user;
+    private mUserID currentUser;
+
+    // Write a message to the database
+    private FirebaseDatabase database;
+    private DatabaseReference userRef, bookRef, ingredRef, recipeRef;
+    private DatabaseReference dbRef;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        userid = user.getUid();
+
+        if (user == null) {
+            startActivity(new Intent(getActivity(), WelcomeActivity.class));
+            // finish();
+            return;
+        }
+        database = FirebaseDatabase.getInstance();
+        dbRef = database.getReference();
+        userRef = dbRef.child(Constants.FIREBASE_CHILD_USERS);
+        bookRef = dbRef.child(Constants.FIREBASE_CHILD_COOKBOOKS);
+
+
+
         initItems();
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
         View v = inflater.inflate(R.layout.add_recipe_frag_layout, parent, false);
+
+        args = getArguments();
+
+        if(args!= null){
+            book = (mCookbook) args.get(Constants.COOKBOOK_OBJ_KEY);
+
+            Log.i(TAG,"LIST OF RECIPE FRAG TITLE "+ book.getTitle());
+
+
+
+            //book_pushID = bundle.getString(Constants.COOKBOOK_ID_KEY);
+            Toast.makeText(getActivity(), "List FRAG Found cookbook nammed " + book.getTitle() + "and pusid is " + book.getId(), Toast.LENGTH_LONG).show();
+
+        }
+        else{
+            Toast.makeText(getActivity(), "NOT FOUND!!!", Toast.LENGTH_LONG).show();
+        }
 
         return v;
     }
@@ -97,6 +164,8 @@ public class Add_RecipeFrag extends Fragment  {
         meas_amt = (TextView) getView().findViewById(R.id.spin_pick_meas);
         amt = (TextView) getView().findViewById(R.id.spin_pick_amt);
         fraction = (TextView) getView().findViewById(R.id.spin_pick_remain_amt);
+        directions = (EditText) getView().findViewById(R.id.textArea_directions);
+
 
         title_wrapper = (TextInputLayout) getView().findViewById(R.id.form_title_wrapper);
         cooktime_wrapper = (TextInputLayout) getView().findViewById(R.id.form_cooktime_wrapper);
@@ -144,7 +213,7 @@ public class Add_RecipeFrag extends Fragment  {
         //SPINNER: REMAINNING QUANTITY
         Spinner quantitySpinner2 = (Spinner) getView().findViewById(R.id.spinner2);
 
-        String[] items2 = new String[] { "1/8", "1/4", "1/2", "1/3", "2/3", "3/4"};
+        String[] items2 = new String[] { "0","1/8", "1/4", "1/2", "1/3", "2/3", "3/4"};
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, items2);
@@ -219,7 +288,7 @@ public class Add_RecipeFrag extends Fragment  {
 
 
         //ingredients = new ArrayList<mIngredient>();
-        //submitBtn.setOnClickListener(new SubmitRecipeBtnClick());
+        submitBtn.setOnClickListener(new SubmitRecipeBtnClick());
 
         mContext = getActivity();
 
@@ -267,6 +336,9 @@ public class Add_RecipeFrag extends Fragment  {
 
                 // remove the item from recycler view
                 ingredAdapter.removeAt(position);
+                bookUpdates.put(book.getId() + "/" + Constants.FIREBASE_CHILD_RECIPES + "/" + recipe_ID + "/" +
+                        Constants.FIREBASE_CHILD_INGREDIENTS + "/" + deletedItem.getPushID(), null);
+                //ingred_map.put(ingredients.get(position).getPushID(),null);
 
                 //remove book from database
                 //cookbooks.put(deletedItem.getId(),null);
@@ -301,20 +373,44 @@ public class Add_RecipeFrag extends Fragment  {
             public void onClick(View view) {
 
                 try {
+
+
+                   ingredRef = dbRef.child(Constants.FIREBASE_CHILD_COOKBOOKS)
+                           .child(Constants.FIREBASE_CHILD_RECIPES).child(Constants.FIREBASE_CHILD_INGREDIENTS);
+
+
+                    ingredient_ID = ingredRef.push().getKey();
+
                     String name = ingred_name.getText().toString();
-                    String meas = meas_amt.getText().toString();
-                    String remain = fraction.getText().toString();
-                    String amount = amt.getText().toString();
 
-                    mIngredient c = new mIngredient();
-                    c.setFoodItem(name);
-                    c.setMeasurement(meas);
-                    c.setRemaingAmt(remain);
-                    c.setAmt(amount);
-                    ingredAdapter.insertItem(c);
-                    int position = ingredAdapter.getItemCount();
+                    if(name != null) {
+                        String meas = meas_amt.getText().toString();
+                        String remain = fraction.getText().toString();
+                        String amount = amt.getText().toString();
 
-                    mAddRecycler.scrollToPosition(position);
+                        mIngredient c = new mIngredient();
+                        c.setPushID(ingredient_ID);
+
+                        c.setFoodItem(name);
+                        c.setMeasurement(meas);
+                        c.setRemaingAmt(remain);
+                        c.setAmt(amount);
+
+                        ingred_map.put(ingredient_ID,c);
+                        bookUpdates.put(book.getId() + "/" + Constants.FIREBASE_CHILD_RECIPES + "/" + recipe_ID + "/" +
+                                Constants.FIREBASE_CHILD_INGREDIENTS + "/" + ingredient_ID, c);
+
+                        ingredAdapter.insertItem(c);
+                        int position = ingredAdapter.getItemCount();
+
+                        recipe.addIngredient(c);
+
+                        mAddRecycler.scrollToPosition(position);
+                    }
+                    else{
+                        ingred_name_wrapper.setError("Enter valid ingredient");
+                    }
+
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
@@ -361,16 +457,41 @@ public class Add_RecipeFrag extends Fragment  {
 
     //create recipe object
     public void submitRecipe() {
+        recipeRef = dbRef.child(Constants.FIREBASE_CHILD_COOKBOOKS).child(Constants.FIREBASE_CHILD_RECIPES);
+        recipe_ID =recipeRef.push().getKey();
         if (validate()) {
+            Log.i(TAG,"object Tring to ADD");
             String str = "title: " + title.getText().toString() +
                     ", cooktime: " + cooktime.getText().toString();
 
 
             recipe.setTitle(title.getText().toString());
             recipe.setCooktime(cooktime.getText().toString());
+            recipe.setDate();
+            recipe.setPushID(recipe_ID);
+            Log.i(TAG,"object just set DATE ");
+            recipe.setServingAmt(servings.getText().toString());
+            if(directions.getText() != null){
+                recipe.setDirection(directions.getText().toString());
+            }
+
+
+
+
+            //recipe_map.put(recipe_ID, recipe);
             Toast.makeText(getActivity(), "Title: " + str, Toast.LENGTH_SHORT).show();
+            bookUpdates.put(book.getId() + "/" + Constants.FIREBASE_CHILD_RECIPES + "/" + recipe_ID, recipe);
+            //bookRef.updateChildren(bookUpdates);
+
+            Log.i(TAG,"object ADDED" + recipe.getPushID());
+
+
+            Log.i(TAG,"object ADDED");
+
+            bookRef.updateChildren(bookUpdates);
 
         }
+        Log.i(TAG,"object DID NOT ADD");
     }
 
 
@@ -381,13 +502,13 @@ public class Add_RecipeFrag extends Fragment  {
         boolean flag = true;
         int counter = 0;
         if (title.getText().toString().length() == 0) {
-            //title_wrapper.setError("Enter valid name");
+            title_wrapper.setError("Enter valid name");
             flag = false;
             counter++;
         }
 
         if (cooktime.getText().toString().length() == 0) {
-            // cooktime_wrapper.setError("Enter valid cook time");
+            cooktime_wrapper.setError("Enter valid cook time");
             flag = false;
             counter++;
         }
@@ -405,9 +526,9 @@ public class Add_RecipeFrag extends Fragment  {
         }
 
         if (counter > 0) {
-            return true;
-        } else
             return false;
+        } else
+            return true;
     }
 
     /*INNER CLASS*/
@@ -465,6 +586,22 @@ public class Add_RecipeFrag extends Fragment  {
             submitRecipe();
         }
 
+    }
+
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
+    //remove listener
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
 

@@ -107,6 +107,7 @@ public class Adapter_Ingredient extends RecyclerView.Adapter<Adapter_Ingredient.
         holder.ingred_name.setText(ingredient.getFoodItem());
         holder.amt.setText(ingredient.getAmt());
         holder.remain_amt.setText(ingredient.getRemaingAmt());
+        holder.meas.setText(ingredient.getMeasurement());
 
     }
 

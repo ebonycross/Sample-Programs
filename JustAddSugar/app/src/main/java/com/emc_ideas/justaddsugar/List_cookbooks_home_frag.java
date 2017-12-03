@@ -70,7 +70,7 @@ public class List_cookbooks_home_frag extends Fragment implements RecyclerItemTo
     private CookBookAdapter bookAdapter;
 
     private Map<String, Object> cookbooks = new HashMap<>();
-    Map<String, Object> bookUpdates = new HashMap<>();
+    private Map<String, Object> bookUpdates = new HashMap<>();
     private RelativeLayout coordinatorLayout;
 
     //Firebase objects
